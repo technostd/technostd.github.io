@@ -1,1 +1,777 @@
-hi
+
+
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Общий протокол · личный и парный зачёт — Немарафон «Осенний флоу» | Московские веломарафоны</title>
+  
+<style>
+:root {
+  color-scheme: light;
+  --cs-accent:#ffbf05; --cs-dark:#121212; --cs-success:#43ce44; --cs-error:#f15f5c;
+  --csg0:#fffdf9; --csg1:#fffdf5; --csg2:#eae9e0; --csg3:#d3d2ca; --csg4:#b6b5af;
+  --csw1:#000; --csw2:#424242; --csw3:#616161;
+  --sbr1:15px; --sbr2:10px; --sbr3:5px;
+  --line:#dedcd3; --paper:#fffdf9;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-width:300px;color:var(--cs-dark);background:var(--csg1);font:14px/1.48 Roboto,Arial,"Helvetica Neue",sans-serif}
+button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid #eeb404;outline-offset:3px}
+a{color:inherit}.page{max-width:1220px;padding:22px 20px 68px;margin:0 auto}
+.top{min-height:57px;display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:19px}
+.wordmark{display:inline-flex;align-items:center;gap:11px;text-decoration:none;font-weight:700;font-size:23px;letter-spacing:-1px;color:var(--cs-dark)}
+.wordmark .brand-title>span{font-weight:700}.wordmark small{font-size:16px;letter-spacing:-.4px}.brand-symbol{width:45px;height:45px;background:var(--cs-accent);border-radius:var(--sbr2);display:grid;place-items:center;color:var(--cs-dark);transform:skew(-6deg)}
+.top-right{display:flex;align-items:center;gap:22px}.top-note{font-size:12px;letter-spacing:.2px;color:var(--csw3);font-weight:600}.timing-dot{display:inline-block;vertical-align:middle;height:8px;width:8px;margin-right:7px;background:var(--cs-success);border-radius:50%}
+.print-btn{border:0;background:var(--cs-accent);color:var(--cs-dark);font-weight:700;display:inline-flex;align-items:center;gap:9px;padding:12px 17px;border-radius:var(--sbr2);transition:transform .2s,background .2s;white-space:nowrap}.print-btn:hover{background:#ebaf00;transform:translateY(-1px)}
+.hero{background:var(--cs-dark);color:#fff;border-radius:var(--sbr1);display:block;position:relative;overflow:hidden;isolation:isolate;min-height:248px}
+.hero-main{padding:34px 39px 30px;position:relative;z-index:2}.hero-kicker{font-size:11px;letter-spacing:1.4px;font-weight:700;color:var(--cs-accent);margin-bottom:15px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}.hero-kicker-bar{background:var(--cs-accent);width:19px;height:3px;display:inline-block}.hero-kicker-sep{color:#999}
+.event-title{font-size:clamp(30px,4.2vw,49px);letter-spacing:-1.65px;line-height:1.08;font-weight:700;margin:0;max-width:810px;text-wrap:balance}
+.meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:20px}.meta-item{border:1px solid #444;background:#242424;padding:8px 11px;border-radius:var(--sbr3);font-size:12px;color:#eeeeec;display:inline-flex;align-items:center;gap:7px}.meta-date{font-weight:700;color:var(--cs-accent);border-color:#7c631b}.hero-description{color:#bebcb9;font-size:12px;margin-top:13px;line-height:1.5;max-width:730px}
+.stat-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0 19px}.stat-card{background:var(--csg2);border-radius:var(--sbr1);display:flex;align-items:center;min-height:84px;padding:17px 19px}
+.mode-tabs{display:flex;gap:7px;align-items:center;border-bottom:1px solid var(--line);padding:0 2px 13px;margin-top:9px;overflow-x:auto;scrollbar-width:thin}.mode-tabs button{background:transparent;border:1px solid transparent;padding:11px 17px;border-radius:var(--sbr2);font-weight:700;white-space:nowrap;color:#4c4942;min-height:43px}.mode-tabs button:hover{background:#f1ebcf}.mode-tabs button.active{background:var(--cs-accent);color:var(--cs-dark)}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:15px;margin:27px 0 17px}.section-label{display:flex;align-items:center;gap:8px;font-size:10px;font-weight:700;letter-spacing:1.4px;margin:0 0 6px;color:#6b6145}.section-spark{display:inline-block;width:23px;height:5px;transform:skew(-20deg);background:var(--cs-accent)}.section-head h2{font-size:clamp(24px,3vw,34px);letter-spacing:-.9px;font-weight:700;line-height:1.16;margin:0 0 5px}.section-desc{color:var(--csw3);font-size:12.5px;margin:0}.count{display:inline-flex;background:#fff4c7;color:#443907;padding:8px 11px;border-radius:var(--sbr3);font-size:11px;font-weight:700;white-space:nowrap}
+.filters{background:var(--paper);border:1px solid var(--line);border-radius:var(--sbr1);padding:13px 15px;margin-bottom:17px}.search-line{display:flex;align-items:center;gap:17px}.search-field{display:flex;align-items:center;gap:8px;background:var(--csg2);border:1px solid #d8d4cb;border-radius:var(--sbr2);padding:0 12px;width:390px;max-width:100%;color:#6a665d}.search-field:focus-within{border-color:#e4a900;box-shadow:0 0 0 2px rgba(255,191,5,.2)}.search-field input{border:0;background:transparent;min-width:0;width:100%;outline:0!important;font-size:13px;padding:12px 0;color:var(--cs-dark)}.search-hint{font-size:12px;color:var(--csw3)}.chip-list{display:flex;gap:6px;overflow-x:auto;padding-top:11px;scrollbar-width:thin}.chip{background:var(--csg2);color:var(--cs-dark);border:1px solid transparent;border-radius:var(--sbr2);padding:9px 12px;font-size:11px;font-weight:700;white-space:nowrap}.chip:hover{background:#e5dcb3}.chip.active{background:var(--cs-dark);color:var(--cs-accent)}
+.group-card{margin:0 0 15px;background:var(--paper);border-radius:var(--sbr1);border:1px solid var(--line);overflow:hidden}.group-header{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:18px 20px 14px;border-bottom:1px solid var(--line);border-left:6px solid var(--cs-accent)}.group-heading{font-size:20px;line-height:1.15;font-weight:700;letter-spacing:-.5px;margin:0}.group-info{font-size:11px;color:var(--csw3);margin-top:6px}.head-count{background:var(--cs-accent);font-size:11px;font-weight:700;border-radius:var(--sbr3);padding:7px 11px;white-space:nowrap}
+.table-wrap{overflow:auto;scrollbar-width:thin;padding:7px 11px 11px}
+table.protocol{border-collapse:separate;border-spacing:0 5px;width:100%;text-align:left;white-space:nowrap;font-variant-numeric:tabular-nums;font-size:12.5px}
+table.protocol thead th{font-weight:700;font-size:10px;letter-spacing:.6px;text-transform:uppercase;color:#756f62;text-align:left;padding:9px 11px 7px}
+table.protocol tbody td{background:#f1eee5;padding:11px;color:#262523;line-height:1.34}
+table.protocol tbody tr:hover td{background:#ffe7a6}
+table.protocol tbody td:first-child{border-radius:var(--sbr2) 0 0 var(--sbr2)}table.protocol tbody td:last-child{border-radius:0 var(--sbr2) var(--sbr2) 0}
+table.protocol tbody tr:first-child .top-place{background:#ffbf05;color:#121212}
+.name{font-weight:700;color:#141414}.muted{color:#837b6d;font-size:11px}.bib{font-size:12px;font-weight:700;background:#fffaf0;color:#121212;padding:5px 8px;border-radius:var(--sbr3);display:inline-block;min-width:32px;text-align:center}.num{text-align:right!important}.place{font-weight:700}.top-place{display:inline-grid;place-items:center;border-radius:7px;min-width:29px;padding:5px;color:#121212;background:#d8d4c6}.result{font-weight:700;font-size:13.5px;color:#161616}.gap{color:#66615b}.time-main{font-size:13px;font-weight:700;color:#1d1d1d}.status{color:#8c2926;font-weight:700;font-size:10.5px;padding:5px 7px;background:#ffdedb;border-radius:6px;display:inline-block}.gray{color:#807971}.lap-col{min-width:84px}.lap-cell b{font-weight:700}.lap-cell small{display:block;font-size:10px;margin-top:4px;color:#777368}.lap-total{font-weight:700}.column-extra{max-width:310px;overflow:hidden;text-overflow:ellipsis}
+.mobile-cards{display:none}.notice{border-left:4px solid var(--cs-accent);background:#fff5cc;padding:11px 14px;margin-bottom:15px;border-radius:0 var(--sbr2) var(--sbr2) 0;color:#58470d;font-size:12px}.empty{padding:44px;text-align:center;color:#746f63;font-weight:650}
+.featured-section{padding:18px;background:#131313;border-radius:var(--sbr1);margin-bottom:16px;color:#fff}.featured-heading{font-size:11px;letter-spacing:1px;font-weight:700;color:var(--cs-accent);text-transform:uppercase;margin-bottom:11px}.podium{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.podium-card{background:#2a2a2a;border:1px solid #383838;border-radius:var(--sbr2);padding:12px 14px;min-width:0;display:flex;align-items:center;gap:11px}.podium-rank{width:36px;height:36px;border-radius:9px;background:#534829;color:var(--cs-accent);font-size:16px;font-weight:700;display:grid;place-items:center;flex:none}.podium-rank.first{background:var(--cs-accent);color:#111}.podium-person{min-width:0}.podium-person strong{font-size:13px;font-weight:700;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.podium-person small{display:block;font-size:11px;color:#cfcbc0;margin-top:5px;font-variant-numeric:tabular-nums}
+.ftr{border-top:1px solid var(--line);margin-top:40px;padding-top:19px;display:flex;justify-content:space-between;align-items:flex-start;gap:18px;color:#777166;font-size:11px}.footer-brand,.footer-right{display:flex;flex-direction:column;gap:6px}.footer-timing{color:#181818;font-weight:700}.footer-timing b{font-weight:700}.footer-event{font-size:11px}.footer-right{text-align:right}.footer-software{font-size:10px;color:#8a857b}.print-meta{display:none}
+@media (max-width:900px){.hero{display:block}.hero-art-text{font-size:42px}.hero-main{padding:30px 26px}.table-wrap{padding:5px 8px}.stat-card{padding:13px}.podium{grid-template-columns:1fr 1fr 1fr}.podium-card{padding:10px}}
+@media (max-width:700px){.page{padding:13px 11px 38px}.top{margin-bottom:10px}.wordmark{font-size:19px}.wordmark small{font-size:13px}.brand-symbol{width:37px;height:37px}.top-note{display:none}.print-btn{font-size:12px;padding:10px 11px}.hero{display:block;min-height:0}.hero-main{padding:27px 21px 27px}.hero-art{display:none}.hero-kicker{font-size:9px;letter-spacing:.7px;margin-bottom:14px}.event-title{font-size:clamp(27px,7.2vw,37px)}.meta{gap:7px;margin-top:18px}.meta-item{padding:6px 8px;font-size:11px}.hero-description{font-size:11px}.stat-strip{gap:7px;margin:9px 0 13px}.stat-card{padding:12px 10px;gap:6px;min-height:70px;display:block}.stat-icon{display:none}.stat-label{font-size:8.5px;letter-spacing:.4px;margin-bottom:5px}.stat-card strong{font-size:23px}.mode-tabs{gap:4px;padding-bottom:9px}.mode-tabs button{font-size:11px;padding:11px 9px;flex:1;min-height:39px}.section-head{margin:23px 0 13px}.section-head h2{font-size:25px}.section-desc{font-size:11px}.section-label{font-size:9px}.count{font-size:10px;padding:6px}.search-line{display:block}.search-field{width:100%}.search-hint{display:none}.filters{padding:11px}.group-header{padding:16px 13px 13px}.group-heading{font-size:18px}.group-info{font-size:10px}.table-wrap{display:none}.mobile-cards{display:flex;flex-direction:column;gap:7px;padding:10px}.mobile-card{border-radius:var(--sbr2);background:#f0eee6;padding:12px 13px}.mobile-head{display:flex;gap:9px;align-items:flex-start;justify-content:space-between}.mobile-rank{flex:none;min-width:35px;height:34px;display:grid;place-items:center;border-radius:8px;background:#141414;color:#ffbf05;font-weight:700;font-size:13px}.mobile-rank.medal{background:#ffbf05;color:#121212}.mobile-name{font-weight:700;font-size:14px;line-height:1.2}.mobile-org{color:#6e6656;font-size:11px;margin-top:4px}.mobile-time{margin-left:auto;text-align:right;flex:none;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}.mobile-time small{display:block;color:#6e675a;font-size:10px;margin-top:5px;font-weight:600}.mobile-foot{margin-top:10px;border-top:1px solid #d7d1c3;padding-top:8px;font-size:11px;color:#554e43;display:flex;align-items:center;gap:6px;flex-wrap:wrap}.mobile-foot span{background:#fffdf5;border-radius:5px;padding:4px 6px}.mobile-laps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:10px}.mobile-lap{border-radius:6px;background:#fffdf5;padding:8px}.mobile-lap small{display:block;color:#6b6458;font-size:10px}.mobile-lap b{font-weight:700;font-size:12px;font-variant-numeric:tabular-nums}.podium{grid-template-columns:1fr}.podium-card{padding:10px}.ftr{display:block;margin-top:30px}.footer-right{text-align:left;margin-top:11px}}
+@media print{
+  @page {margin:12mm}
+  *,*:before,*:after{box-shadow:none!important;text-shadow:none!important;transition:none!important}
+  html,body{background:#fff!important;color:#000!important;font-family:Arial,"Segoe UI",sans-serif!important;font-size:9pt!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{width:100%;max-width:none;margin:0;padding:0}
+  .top,.stat-strip,.mode-tabs,.filters,.no-print,.mobile-cards{display:none!important}
+  .hero{border-radius:0;background:#fff!important;color:#000!important;display:block;min-height:0;border-bottom:2px solid #000;margin:0 0 12px}
+  .hero-main{padding:0 0 10px}.hero-art{display:none!important}.hero-kicker{color:#222!important;letter-spacing:.7px;font-size:8pt;margin-bottom:4px}.hero-kicker-bar{background:#000!important}.hero-kicker-sep{color:#777!important}.event-title{font-size:18pt!important;letter-spacing:0;line-height:1.14;margin:3px 0 9px}.meta{margin-top:8px}.meta-item{background:none!important;color:#222!important;border:0;padding:0 10px 0 0;font-size:8pt}.meta-date{font-weight:700;color:#111!important}.hero-description{color:#555!important;font-size:8pt;margin-top:6px}
+  .section-head{margin:5px 0 10px}.section-label{color:#555!important;font-size:7pt;margin:0 0 3px}.section-spark{background:#111!important;height:3px}.section-head h2{font-size:16pt!important;margin:0 0 2px;letter-spacing:0}.section-desc{font-size:8pt}.count{padding:0;background:none!important;color:#444!important;font-size:8pt}
+  .group-card{border:0;border-radius:0;margin:0 0 15px;overflow:visible;break-inside:auto}.group-header{padding:4px 0 7px;border-left:0;border-bottom:1px solid #333;break-after:avoid;page-break-after:avoid}.group-heading{font-size:12pt;letter-spacing:0}.group-info{font-size:8pt}.head-count{padding:0;background:none!important;font-size:8pt}.table-wrap{display:block!important;padding:0;overflow:visible}
+  table.protocol{border-collapse:collapse;border-spacing:0;font-size:8pt;width:100%;white-space:normal!important}table.protocol thead{display:table-header-group}table.protocol tr{break-inside:avoid;page-break-inside:avoid}table.protocol thead th{font-size:7pt;color:#333!important;padding:5px 5px!important;border-bottom:1px solid #444}table.protocol tbody td{background:#fff!important;padding:5px 5px!important;border-bottom:1px solid #d2d2d2!important;color:#111!important;line-height:1.25}table.protocol tbody td:first-child,table.protocol tbody td:last-child{border-radius:0}.num{text-align:right!important}.name,.result{font-weight:700;color:#111!important}.result,.time-main{font-size:8pt}.bib{padding:0;border-radius:0;background:none!important;min-width:0}.top-place{background:none!important;color:#000!important;padding:0;min-width:0}.column-extra{max-width:none}.lap-col{min-width:0}.lap-cell small{font-size:7pt}.status{color:#111!important;background:none!important;padding:0}.mobile-cards{display:none!important}.notice{border:1px solid #aaa;border-radius:0;background:none!important;color:#333!important;font-size:8pt;padding:6px 8px;margin-bottom:8px}
+  .ftr{padding-top:8px;margin-top:18px;border-top:1px solid #333;font-size:8pt;break-inside:avoid;page-break-inside:avoid}.footer-timing{font-size:9pt}.footer-software{color:#666!important;font-size:7pt}.print-meta{display:inline!important;margin-left:4px}
+}
+
+/* MVM v4: restrained sports typography, no display-font or generic startup wordmark. */
+.wordmark{font-size:16px;line-height:1.18;letter-spacing:0;gap:12px;font-weight:600}
+.brand-symbol{font-size:13px;font-weight:700;letter-spacing:-.15px;transform:none;border-radius:8px;display:flex;align-items:center;justify-content:center;width:50px;height:43px}
+.brand-heading{display:flex;flex-direction:column;gap:4px}
+.brand-heading strong{font-weight:700;letter-spacing:-.1px;white-space:nowrap}
+.brand-heading small{font-size:12px;letter-spacing:.15px;font-weight:400;color:#68645e}
+.top-note{font-weight:500;font-size:12px;letter-spacing:0}
+.hero{min-height:229px}
+.hero-main{padding:34px 38px 28px}
+.hero-kicker{font-size:10px;letter-spacing:.55px;font-weight:700}
+.event-title{font-weight:700;font-size:clamp(30px,4.1vw,44px);letter-spacing:-.55px;line-height:1.15;text-wrap:pretty}
+.stat-label,.section-label,.featured-heading,.group-info,table.protocol thead th{letter-spacing:.35px}
+.stat-card strong{font-size:25px;letter-spacing:-.3px}
+.section-head h2{letter-spacing:-.35px;font-weight:700}
+.group-heading{letter-spacing:-.15px}
+.table-wrap table.protocol{font-size:13px}
+.name{font-weight:700}
+.footer-brand .footer-timing{font-weight:500}
+.footer-brand .footer-timing b{font-weight:700}
+.footer-site{font-size:11px;color:#67635b}
+@media(max-width:700px){
+  .wordmark{font-size:13px;gap:7px;min-width:0}
+  .brand-symbol{font-size:11px;width:40px;height:37px;flex-shrink:0}
+  .brand-heading strong{white-space:normal;line-height:1.12;max-width:195px}
+  .brand-heading small{font-size:10px}
+  .print-btn{padding:9px 10px}
+  .hero-main{padding:27px 21px}
+  .event-title{font-size:clamp(26px,7vw,36px);letter-spacing:-.25px}
+}
+@media print {
+  .hero{min-height:0}
+  .hero-kicker{font-size:8pt;letter-spacing:0!important}
+  .event-title{font-size:17pt!important;letter-spacing:0!important}
+  .footer-site{font-size:8pt!important;color:#111!important}
+}
+
+
+/* MVM v5: actual inline SVG logo, no decorative promo banner or numbered stat icons. */
+.brand-svg{display:inline-flex;align-items:center;justify-content:center;width:103px;flex-shrink:0}
+.brand-svg svg{display:block;width:100%;height:auto;max-height:45px}
+.hero{display:block}
+.stat-card{gap:0}
+@media(max-width:700px){
+  .brand-svg{width:64px}
+  .brand-svg svg{max-height:38px}
+  .wordmark{gap:5px}
+  .brand-heading strong{font-size:11px;max-width:137px}
+  .stat-card{display:flex;align-items:center}
+}
+
+/* v7: lap count and unobtrusive partial-distance status icon */
+.lap-count{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.partial-mark{display:inline-flex;align-items:center;justify-content:center;margin-left:5px;vertical-align:middle;color:#a88424;line-height:1}
+.partial-mark svg{width:12px;height:12px;display:block;flex:none}
+@media print {.partial-mark{color:#555!important}.partial-mark svg{width:10px;height:10px}.lap-count{white-space:nowrap}}
+/* v9: native SportOrg penalty and credit values; compact, print-friendly display */
+.stat-card > div{display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+.penalty-col{min-width:104px}.penalty-list{display:inline-flex;align-items:center;flex-wrap:wrap;gap:4px;justify-content:flex-start}
+.penalty-chip{display:inline-block;padding:4px 6px;border-radius:5px;border:1px solid #decab1;background:#f8ece0;color:#7d3a19;font-size:10px;font-variant-numeric:tabular-nums;font-weight:700;line-height:1.25;white-space:nowrap}
+.penalty-chip.credit-time{background:#e7f5e7;border-color:#b3d9b4;color:#21632a}
+.penalty-chip.penalty-laps,.penalty-chip.penalty-score{background:#fff0c1;border-color:#edd997;color:#675112}
+@media print{.penalty-col{min-width:0}.penalty-chip{padding:1px 3px;border:0;background:transparent!important;color:#111!important;font-size:7pt}.penalty-list{gap:3px}}
+
+/* v10 — командный парный зачёт */
+.pair-instruction{margin:14px 16px 8px;padding:10px 13px;background:#fff4c5;border-left:3px solid var(--cs-accent);border-radius:0 8px 8px 0;font-size:12px;color:#655122}
+.pair-list{padding:10px 13px 16px;display:grid;gap:13px}
+.pair-team{border:1px solid #ded9cb;border-radius:13px;background:#fffefa;overflow:hidden;break-inside:avoid-page}
+.pair-top{display:flex;align-items:center;gap:13px;background:#efede4;padding:15px 16px;border-bottom:1px solid #e2ded1}
+.pair-place{min-width:43px;height:43px;border-radius:10px;background:#171717;color:#ffbf05;display:grid;place-items:center;font-size:17px;font-weight:700;font-variant-numeric:tabular-nums}
+.pair-place.podium-place{background:#ffbf05;color:#151515}
+.pair-identity{flex:1;min-width:0}.pair-identity h4{margin:0;font-size:18px;font-weight:700;line-height:1.22;overflow-wrap:anywhere}.pair-identity small,.pair-score small{display:block;font-size:10.5px;color:#71695a;margin-top:4px}
+.pair-score{text-align:right;min-width:180px}.pair-score strong{font-size:18px;font-weight:700;font-variant-numeric:tabular-nums;color:#151515}
+.pair-team .pair-table{padding:7px 9px 7px}
+.pair-team .pair-table .table-wrap{padding:0;overflow:visible}
+.pair-participant.is-worst td{background:#fff3c7!important}
+.determining{margin-left:7px;font-size:10px;color:#6d5511;background:#ffeb9d;border-radius:5px;padding:3px 5px;white-space:nowrap}
+.pair-checkpoint-section{display:grid;gap:5px;padding:0 14px 13px}
+.pair-checkpoints{border-top:1px dashed #d2cbbb;padding-top:8px;display:grid;gap:7px}
+.split-owner{display:flex;align-items:center;gap:9px;flex-wrap:wrap;font-size:12px}.split-owner>span:last-child{font-size:10px;color:#797264;text-transform:uppercase;letter-spacing:.3px}
+.checkpoint-list{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.checkpoint-chip{display:inline-flex;gap:5px;align-items:center;padding:5px 7px;background:#f1efe8;border:1px solid #e2ded4;border-radius:6px;color:#3b362e;font-variant-numeric:tabular-nums;font-size:10.5px;white-space:nowrap}
+.checkpoint-chip b{background:#171717;color:#ffbf05;padding:2px 5px;border-radius:4px;font-size:10px}.checkpoint-chip small{color:#817465;font-size:10px}.checkpoint-chip.unchecked{border-color:#e6bcb5;background:#fff0ec;color:#97382e}.checkpoint-chip.finish-chip{border-color:#e3c674;background:#fff6d8}.checkpoint-chip.finish-chip em{color:#6c5011}.checkpoint-chip em{font-style:normal;font-weight:700;color:#a42d25}
+@media(max-width:700px){.pair-list{padding:9px;gap:9px}.pair-top{padding:12px;align-items:flex-start;gap:9px;flex-wrap:wrap}.pair-place{width:36px;height:36px;min-width:36px;font-size:14px}.pair-identity h4{font-size:16px}.pair-score{min-width:0;flex-basis:100%;padding-left:45px;text-align:left}.pair-score strong{font-size:15px}.pair-team .pair-table{display:block!important;max-width:100%;overflow-x:auto}.pair-team .pair-table .table-wrap{display:block!important;min-width:630px}.pair-team .pair-table table{font-size:11px}.pair-checkpoint-section{padding:0 10px 12px}.checkpoint-list{gap:4px}.checkpoint-chip{font-size:10px;padding:4px 5px}}
+@media print{.pair-instruction{font-size:8pt;padding:5px;border:1px solid #ccc;background:none!important}.pair-list{padding:0;gap:8mm}.pair-team{border:1px solid #777;border-radius:0;break-inside:avoid-page;margin:0 0 5mm;overflow:visible}.pair-top{background:#fff!important;padding:5px 7px;border-bottom:1px solid #777}.pair-place{border:1px solid #333;background:none!important;color:#000!important;width:27px;height:27px;min-width:27px;font-size:10pt}.pair-identity h4{font-size:10.5pt}.pair-score strong{font-size:10pt}.pair-score small,.pair-identity small{font-size:7pt}.pair-team .pair-table{display:block!important;padding:2px 5px}.pair-team .pair-table .table-wrap{display:block!important;min-width:0!important}.pair-team table.protocol{font-size:7pt}.pair-team table.protocol th{font-size:6.5pt!important;padding:4px!important}.pair-team table.protocol td{font-size:7pt!important;padding:4px!important}.pair-participant.is-worst td{background:#fff!important;border-top:1px solid #888!important}.determining{color:#111;background:none!important;border:1px solid #aaa;padding:1px 3px;font-size:6.5pt}.pair-checkpoint-section{gap:3px;padding:2px 7px 7px}.pair-checkpoints{padding-top:4px}.split-owner{gap:4px;font-size:8pt}.split-owner>span:last-child{font-size:7pt}.checkpoint-list{gap:3px}.checkpoint-chip{font-size:7pt;padding:2px 3px;background:none!important;border:1px solid #ccc!important}.checkpoint-chip b{color:#111;background:none!important;padding:0 2px}.checkpoint-chip small{font-size:6.5pt}}
+</style>
+
+  <style id="paper-size">@page { size: A4 portrait; margin: 12mm; }</style>
+</head>
+<body>
+<div class="page" id="report-root">
+  <header class="top no-print">
+    <a class="wordmark" href="https://velomarathon.ru" target="_blank" rel="noopener noreferrer" aria-label="Московские веломарафоны — velomarathon.ru">
+      <span class="brand-svg" aria-hidden="true"><svg width="1881" height="623" viewBox="0 0 1881 623" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1226.06 337.401C1243.13 333.57 1256.92 318.34 1256.92 295.814C1256.92 273.288 1239.95 249.667 1204.37 249.576H1101.82V430.971H1207.37C1212.27 430.971 1216.9 430.515 1221.16 429.603C1247.39 424.405 1260.46 404.432 1260.46 381.723C1260.46 359.015 1245.31 340.41 1226.06 337.401ZM1148.38 288.974H1193.57C1203.01 288.974 1209.55 295.267 1209.55 303.931C1209.55 312.595 1203.01 319.161 1193.57 319.161H1148.38V288.974ZM1195.21 391.482H1148.38V358.833H1195.21C1206.55 358.833 1213.09 366.22 1213.09 375.157C1213.09 384.915 1206.28 391.482 1195.21 391.482Z" fill="#1D1D1B"/>
+<path d="M559.189 382.18L521.616 356.279C519.256 354.638 516.806 353.179 513.448 351.446L481.048 336.854C481.502 333.48 481.32 329.923 480.504 326.549L470.974 287.424L475.784 282.317L518.712 274.565L519.075 274.93L519.619 274.383L546.846 269.458L542.036 242.554L528.514 245.017L501.196 215.559L453.912 200.694L442.658 197.411C442.658 197.411 442.931 196.955 443.021 196.681C447.378 186.193 448.104 174.429 445.653 162.846L455.455 160.475L452.188 147.16C448.194 131.018 438.937 117.064 426.141 107.762C412.8 98.0951 397.099 94.8119 382.124 98.4599C351.812 105.938 333.933 139.955 342.191 174.155L345.459 187.47L351.902 185.828C351.902 185.828 351.993 186.467 352.084 186.74C356.44 200.238 365.153 211.455 376.588 218.387C377.586 219.025 378.675 219.481 379.764 220.028L320.319 245.564L306.252 279.763L293.909 280.858L296.36 308.126L375.862 300.922L387.751 349.348C387.842 349.895 388.114 350.351 388.295 350.807L359.072 359.38C353.536 361.022 348.635 364.214 344.914 368.591L322.225 395.495L315.691 387.925L295.089 405.8L322.407 437.629L365.697 386.284C365.697 386.284 366.333 385.737 366.696 385.645L419.788 370.05C420.332 369.959 420.968 370.05 421.512 369.868L423.237 369.412L431.405 430.151L425.505 431.245L412.255 392.759L374.773 397.592L378.222 424.77L393.741 422.763L400.638 442.736C404.541 454.136 415.976 460.793 427.774 458.696L435.035 457.328L444.201 525.909L471.156 522.261L461.808 452.494L470.611 450.853L482.863 476.115L512.541 472.649L509.364 445.472L498.836 446.749L494.026 436.808C489.307 427.05 478.598 421.669 467.979 423.584L458.087 425.408L449.737 362.937L460.084 360.383C461.354 360.019 462.625 359.563 463.805 359.015L501.468 375.887C503.102 376.708 504.645 377.711 506.097 378.714L564.907 419.298L586.87 390.661L565.27 373.972L559.098 381.997L559.189 382.18ZM441.025 279.399L439.391 281.131L406.991 289.613L399.277 281.861L392.198 252.86C401.455 255.961 413.163 258.149 423.963 254.684C427.593 253.498 430.951 252.039 433.946 250.489L441.025 279.307V279.399ZM415.069 343.42C415.069 343.42 414.342 343.238 414.252 342.964L407.899 316.973C409.986 316.973 412.074 316.699 414.161 316.152L415.976 315.696L419.516 342.326L414.978 343.42H415.069ZM388.568 125.09C390.383 124.634 392.289 124.452 394.195 124.452C399.731 124.452 405.358 126.367 410.531 130.106C414.524 132.933 417.973 136.672 420.605 140.959L367.512 154C368.692 139.955 376.769 128.008 388.568 125.181V125.09ZM378.494 179.353L419.606 169.23C420.695 175.067 420.242 180.904 418.154 186.011C415.795 191.665 411.711 195.678 406.719 197.32C401.637 198.961 396.01 198.14 390.837 194.948C385.301 191.574 381.035 186.011 378.585 179.262L378.494 179.353ZM401.274 225.591C405.902 225.591 410.531 224.862 415.069 223.402C424.507 220.302 432.494 214.191 438.211 205.892L436.941 209.723C436.759 210.27 432.221 223.494 415.704 228.692C410.984 230.242 402.907 228.054 396.282 225.226C397.916 225.409 399.549 225.591 401.183 225.591H401.274ZM336.928 277.027L341.284 266.357L364.971 256.143L369.327 274.018L336.928 276.936V277.027ZM453.64 333.844L446.107 335.668L442.477 308.582L446.289 307.579C446.833 307.488 447.196 307.123 447.741 306.941L454.094 333.024C454.094 333.024 453.912 333.753 453.64 333.844ZM456.998 230.334L486.221 239.545L496.658 250.853L470.974 255.505C468.433 255.96 466.073 256.781 463.805 257.967L457.089 230.425L456.998 230.334Z" fill="#1D1D1B"/>
+<path d="M1010.61 249.576L886.092 379.626C881.01 384.915 859.501 385.827 853.057 379.626L717.468 249.576H653.938C653.938 250.306 653.757 251.127 653.757 251.856V429.603H700.95V299.28L820.476 414.008C828.825 422.033 840.079 427.141 852.331 429.694C857.958 430.88 863.766 431.518 869.575 431.518C875.383 431.518 881.192 430.88 886.818 429.694C899.797 427.049 911.776 421.395 920.217 412.549L1025.4 302.745V429.694H1072.6V252.586C1072.6 251.583 1072.51 250.671 1072.41 249.667H1010.79L1010.61 249.576Z" fill="#1D1D1B"/>
+<path d="M1587.73 249.576H1532.37L1444.7 383C1444.7 383 1443.33 383.912 1441.52 384.003C1439.52 384.003 1438.34 383.365 1438.07 383L1342.78 249.576H1286.24C1286.24 250.306 1286.05 251.127 1286.05 251.856V429.603H1333.25V317.519L1399.77 410.634C1406.49 420.027 1416.47 426.685 1427.82 429.603C1432.17 430.697 1436.71 431.427 1441.34 431.427C1441.7 431.427 1442.06 431.427 1442.43 431.427C1446.78 431.427 1451.05 430.697 1455.04 429.694C1467.02 426.593 1477.37 419.389 1483.99 409.174L1540.72 322.9V429.694H1587.91V252.586C1587.91 251.583 1587.82 250.671 1587.64 249.667L1587.73 249.576Z" fill="#1D1D1B"/>
+</svg></span>
+      <span class="brand-heading"><strong>Московские веломарафоны</strong><small>velomarathon.ru</small></span>
+    </a>
+    <div class="top-right">
+      <span class="top-note">Хронометраж соревнований</span>
+      <button class="print-btn" id="print-btn" type="button"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/><path d="M17 12h.01"/></svg> Печать / PDF</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-main">
+      <div class="hero-kicker"><span class="hero-kicker-bar"></span> МОСКОВСКИЕ ВЕЛОМАРАФОНЫ <span class="hero-kicker-sep">/</span> ХРОНОМЕТРАЖ</div>
+      <h1 class="event-title">Немарафон «Осенний флоу»</h1>
+      <div class="meta">
+        <span class="meta-item meta-date"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>25.10.2026</span>
+        <span class="meta-item">Балашиха, Вишняковский л/п</span>
+      </div>
+      <div class="hero-description">Немарафон «Осенний флоу» 25 октября 2026 года.</div>
+    </div>
+    
+  </section>
+
+  <div class="stat-strip no-print" aria-label="Статистика соревнования">
+    <div class="stat-card"><div><span class="stat-label">УЧАСТНИКОВ</span><strong id="event-count">—</strong></div></div>
+    <div class="stat-card"><div><span class="stat-label">ГРУПП</span><strong id="groups-count">—</strong></div></div>
+    <div class="stat-card"><div><span class="stat-label">ФИНИШИРОВАЛИ</span><strong id="finished-count">—</strong></div></div>
+  </div>
+
+  <nav class="mode-tabs no-print" aria-label="Выбор протокола">
+    <button type="button" data-view="start">Стартовый протокол</button>
+    <button type="button" data-view="results">Результаты</button>
+    <button type="button" data-view="laps">Время по кругам</button>
+    <button type="button" data-view="extra">Дополнительные круги</button>
+    <button type="button" data-view="mixed">Все категории</button>
+    <button type="button" data-view="pairs">Только пары</button>
+  </nav>
+
+  <section class="section-head"><div><p class="section-label"><span class="section-spark"></span> РЕЗУЛЬТАТЫ СОРЕВНОВАНИЙ</p><h2 id="current-heading"></h2><p class="section-desc" id="current-description"></p></div><span class="count" id="shown-count"></span></section>
+
+  <div class="filters no-print">
+    <div class="search-line"><label class="search-field" for="search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input id="search" type="search" placeholder="Фамилия, номер или команда…" autocomplete="off"></label><span class="search-hint">Найди себя в протоколе или выбери группу</span></div>
+    <div class="chip-list" id="group-filters" role="group" aria-label="Группы"></div>
+  </div>
+  <div id="notice"></div>
+  <div id="featured" class="no-print"></div>
+  <main id="report-content"></main>
+
+  <footer class="ftr">
+    <div class="footer-brand"><span class="footer-timing"><b>Московские веломарафоны</b> · хронометраж</span><span class="footer-site">velomarathon.ru</span><span class="footer-event">Немарафон «Осенний флоу» · 25.10.2026</span></div>
+    <div class="footer-right"><span>Главный судья: Капитонов М.А.</span><span class="footer-software">Протокол сформирован в SportOrg <span class="print-meta" id="date-print"></span></span></div>
+  </footer>
+</div>
+<script id="sportorg-json" type="application/json">{
+  "data":{"description": "Немарафон «Осенний флоу» 25 октября 2026 года.", "location": "Балашиха, Вишняковский л/п", "start_datetime": "2026-10-25 00:00:00", "title": "Немарафон «Осенний флоу»"},
+  "settings":{"marked_route_mode": "off", "result_processing_mode": "time", "system_finish_cp_number": 90, "system_finish_source": "station"},
+  "organizations":[{"id": "faf64be0-e4c7-4998-8904-242e1686c561", "name": "NakaTEAM"},{"id": "b1aa860d-2547-45ed-b1ed-0ed15c8482ab", "name": ""},{"id": "7b5757af-29ff-4192-84de-73beba9c230a", "name": "Москва"},{"id": "612f4056-5ba3-4828-92ad-4fd2dc82e556", "name": "Спортивный уголок"},{"id": "17284da4-af2b-400a-a45e-85c4bb1feb4b", "name": "Ивантеевка"},{"id": "80342f96-ea1d-49ac-8a2a-3f163e6ba01b", "name": "Амазонки"},{"id": "00c62b94-4bd4-471a-89e0-d6798baf96e0", "name": "SUFFER FASTER"},{"id": "7f931a6e-25a5-48f2-9322-34d8465a98c2", "name": "Костыли"},{"id": "ed89d1bd-e92e-44ab-b16f-54f75bad3bf4", "name": "Ростов-на-Дону"},{"id": "98648d27-351b-458d-bc4f-ebe416896b05", "name": "INSTINCT"},{"id": "ed46920a-3c8b-46c6-a2d1-e75aac63e205", "name": "49x17"},{"id": "a4e13553-b3ff-4e85-b987-bb7098ae834a", "name": "Wonder Trail"},{"id": "16b5362a-e5e7-4708-8ffa-85197cc5a73a", "name": "ВелоРакеты.Переславль"},{"id": "93388586-6cbd-4337-bdb3-0b5965d7ddf0", "name": "Лобня"},{"id": "5253d2ff-a1bd-41fd-8537-ec85c3301777", "name": "Суетологи"},{"id": "bc82a16d-6d0a-48d6-984f-d5cdf1a696c8", "name": "Химки"},{"id": "492184b6-8da0-4f27-b812-b40ba3a78e18", "name": "Балашиха"},{"id": "97d64157-aa73-4b30-844b-2b4243194072", "name": "Night Borovka"},{"id": "218963a5-6989-4c8e-8730-b49b40736a76", "name": "Velodelo crew"},{"id": "bca8255a-277d-4d4e-b66b-67274f1b36a3", "name": "Orienta Ski-O"},{"id": "38deafb5-858f-423a-b741-1c92bf47c944", "name": "Жуковский"},{"id": "4ad641fa-250d-47d8-b808-dc11ab2d7f1f", "name": "БурмалдаTeam"},{"id": "df3c8532-b618-4eca-9e23-359ef214d0cf", "name": "Зеленоград"},{"id": "fa361bbb-f5c2-4107-87cf-2f8904611dc4", "name": "SUPERSPORT"},{"id": "6c64761a-6de8-469f-88d8-72ec07ba7e3f", "name": "ИНГО Сборная"},{"id": "1b94d2fa-1505-472a-bbf1-14d139d82af6", "name": "Долгопрудный"},{"id": "7a4ed1c6-6f8c-4071-996b-74107e5db9e3", "name": "кАтята"},{"id": "f721c336-54ac-48ce-a681-1f4369d55b07", "name": "Реутов"},{"id": "58cbe416-ad28-4f31-ba83-cdc8dcb59406", "name": "Московская академия велоспорта"},{"id": "bd128198-fba2-40e6-8917-26ded7db1ce7", "name": "МВМ/СК Орбита"},{"id": "284b53f4-0376-4566-89cd-734d91cd9bef", "name": "Кур де Франс"},{"id": "62ad27e6-302d-49a7-b72b-341a98ae4849", "name": "Paiaai"},{"id": "c4a33d38-5102-4dae-bab8-8725178e26ee", "name": "Turtle cycling team"},{"id": "cc54a9f6-3fa2-4011-8fe1-49a9fe524fe3", "name": "1/2 РВО-Т"},{"id": "24489565-5515-436b-aa94-6c8b67a784cb", "name": "ACTION BROTHERS"},{"id": "6b220ac5-b8bd-494e-9a58-2f971573752c", "name": "ИванЮля"},{"id": "25f78611-167e-4c8d-8b56-9f4c344b00ec", "name": "КручуВерчу"}],
+  "groups":[{"course_id": "a7b56d9d-c536-4c6a-8cbd-cfa4b895b886", "id": "91d9c11b-48ee-4d17-ad38-4f07e62d58f0", "name": "М7-9"},{"course_id": "a7b56d9d-c536-4c6a-8cbd-cfa4b895b886", "id": "c42b8221-63c7-43e7-bd4d-45be8336dc01", "name": "Ж7-9"},{"course_id": "6cd4c886-efd4-4fbb-ae38-f951cebad629", "id": "913702b3-1bc1-446f-a557-b4170cd241ea", "name": "М10-12"},{"course_id": "6cd4c886-efd4-4fbb-ae38-f951cebad629", "id": "ae779059-6494-4645-8879-e950d50e89ed", "name": "Ж10-12"},{"course_id": "98b54e32-1c95-4d7a-b772-022bbeeb45ec", "id": "3b6b20fc-6243-4e1c-aada-c26a6de64ee9", "name": "Электро"},{"course_id": "ce612ca5-2db7-4ca9-97ca-1de1cfb5fbe1", "id": "a3229791-4b26-4765-bea8-9a7fd8e6cc1b", "name": "М13-29"},{"course_id": "ce612ca5-2db7-4ca9-97ca-1de1cfb5fbe1", "id": "2b48ea6c-d865-4877-8a7c-59ff9e69fb7f", "name": "М30-39"},{"course_id": "ce612ca5-2db7-4ca9-97ca-1de1cfb5fbe1", "id": "ea8ef6a6-a7dc-4f6c-9519-645e71179130", "name": "М40-54"},{"course_id": "ce612ca5-2db7-4ca9-97ca-1de1cfb5fbe1", "id": "03b11fff-1c61-486b-9e23-9336b31fe88b", "name": "М55+"},{"course_id": "62bfb74b-fb3e-4d87-99fe-48e7420837ac", "id": "e56e3a97-02e5-4896-9978-a030e4aa4182", "name": "Ж13-29"},{"course_id": "62bfb74b-fb3e-4d87-99fe-48e7420837ac", "id": "edbc1a2c-59a1-403b-ae4a-cd319ec9429f", "name": "Ж30-39"},{"course_id": "62bfb74b-fb3e-4d87-99fe-48e7420837ac", "id": "a9dcad6e-6bcd-4920-94aa-b6cce0a6188d", "name": "Ж40+"},{"course_id": "ce612ca5-2db7-4ca9-97ca-1de1cfb5fbe1", "id": "8b609ce0-b417-4cce-b9d6-5b09094307b2", "name": "МГрэвел"},{"course_id": "62bfb74b-fb3e-4d87-99fe-48e7420837ac", "id": "a4e258ac-5fda-4d92-bbb9-af0b0632846d", "name": "ЖГрэвел"},{"course_id": "62bfb74b-fb3e-4d87-99fe-48e7420837ac", "id": "7296b8ba-8f3a-4917-a04c-ec4a45d6b4f3", "name": "Пары"}],
+  "courses":[{"controls": [{"code": "32", "length": 840, "object": "CourseControl"}], "id": "a7b56d9d-c536-4c6a-8cbd-cfa4b895b886", "length": 1880, "name": "Дети — 1 круг"},{"controls": [{"code": "32", "length": 840, "object": "CourseControl"}, {"code": "31", "length": 1040, "object": "CourseControl"}, {"code": "32", "length": 840, "object": "CourseControl"}], "id": "6cd4c886-efd4-4fbb-ae38-f951cebad629", "length": 3760, "name": "Дети — 2 круга"},{"controls": [{"code": "32", "length": 1000, "object": "CourseControl"}, {"code": "33", "length": 2400, "object": "CourseControl"}, {"code": "31", "length": 3670, "object": "CourseControl"}, {"code": "32", "length": 1000, "object": "CourseControl"}, {"code": "33", "length": 2400, "object": "CourseControl"}, {"code": "31", "length": 3670, "object": "CourseControl"}, {"code": "32", "length": 1000, "object": "CourseControl"}, {"code": "33", "length": 2400, "object": "CourseControl"}], "id": "62bfb74b-fb3e-4d87-99fe-48e7420837ac", "length": 21210, "name": "Взрослые — 3 круга"},{"controls": [{"code": "32", "length": 1000, "object": "CourseControl"}, {"code": "33", "length": 2400, "object": "CourseControl"}, {"code": "31", "length": 3670, "object": "CourseControl"}, {"code": "32", "length": 1000, "object": "CourseControl"}, {"code": "33", "length": 2400, "object": "CourseControl"}, {"code": "31", "length": 3670, "object": "CourseControl"}, {"code": "32", "length": 1000, "object": "CourseControl"}, {"code": "33", "length": 2400, "object": "CourseControl"}, {"code": "31", "length": 3670, "object": "CourseControl"}, {"code": "32", "length": 1000, "object": "CourseControl"}, {"code": "33", "length": 2400, "object": "CourseControl"}], "id": "ce612ca5-2db7-4ca9-97ca-1de1cfb5fbe1", "length": 28280, "name": "Взрослые — 4 круга"},{"controls": [{"code": "32", "length": 1000, "object": "CourseControl"}, {"code": "33", "length": 2400, "object": "CourseControl"}, {"code": "31", "length": 3670, "object": "CourseControl"}, {"code": "32", "length": 1000, "object": "CourseControl"}, {"code": "33", "length": 2400, "object": "CourseControl"}, {"code": "31", "length": 3670, "object": "CourseControl"}, {"code": "32", "length": 1000, "object": "CourseControl"}, {"code": "33", "length": 2400, "object": "CourseControl"}, {"code": "31", "length": 3670, "object": "CourseControl"}, {"code": "32", "length": 1000, "object": "CourseControl"}, {"code": "33", "length": 2400, "object": "CourseControl"}, {"code": "31", "length": 3670, "object": "CourseControl"}, {"code": "32", "length": 1000, "object": "CourseControl"}, {"code": "33", "length": 2400, "object": "CourseControl"}], "id": "98b54e32-1c95-4d7a-b772-022bbeeb45ec", "length": 35350, "name": "Взрослые — 5 кругов"}],
+  "persons":[{"bib": 1, "card_number": 61014108, "group_id": "ea8ef6a6-a7dc-4f6c-9519-645e71179130", "id": "114b0792-52fa-498c-a386-692ce7a51ed5", "is_out_of_competition": false, "name": "Антон", "organization_id": "faf64be0-e4c7-4998-8904-242e1686c561", "start_time": null, "surname": "Митрофанов", "year": 1983},{"bib": 2, "card_number": 61014093, "group_id": "ea8ef6a6-a7dc-4f6c-9519-645e71179130", "id": "81575730-aa08-42b4-82bd-c2d47ec16bec", "is_out_of_competition": false, "name": "Александр", "organization_id": "faf64be0-e4c7-4998-8904-242e1686c561", "start_time": null, "surname": "Никитков", "year": 1973},{"bib": 3, "card_number": 61014175, "group_id": "ea8ef6a6-a7dc-4f6c-9519-645e71179130", "id": "1d333e27-fc7d-4ec6-9c71-d8c79fd1bf97", "is_out_of_competition": false, "name": "Илья", "organization_id": "b1aa860d-2547-45ed-b1ed-0ed15c8482ab", "start_time": null, "surname": "Котов", "year": 1986},{"bib": 4, "card_number": 61014154, "group_id": "2b48ea6c-d865-4877-8a7c-59ff9e69fb7f", "id": "16418e1f-8c0a-42f8-93d8-a66dd20b4f60", "is_out_of_competition": false, "name": "Андрей", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Сенченко", "year": 1989},{"bib": 5, "card_number": 61014153, "group_id": "ea8ef6a6-a7dc-4f6c-9519-645e71179130", "id": "18941eba-760d-47b0-b688-955a1285a8cd", "is_out_of_competition": false, "name": "Иван", "organization_id": "612f4056-5ba3-4828-92ad-4fd2dc82e556", "start_time": null, "surname": "Антонов", "year": 1978},{"bib": 6, "card_number": 61014191, "group_id": "2b48ea6c-d865-4877-8a7c-59ff9e69fb7f", "id": "67d75302-f7c4-4ae6-b123-ca7127df9191", "is_out_of_competition": false, "name": "Даниил", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Федюнин", "year": 1996},{"bib": 7, "card_number": 61014067, "group_id": "2b48ea6c-d865-4877-8a7c-59ff9e69fb7f", "id": "ef41425b-4cb6-4b04-b5fb-9230983a234e", "is_out_of_competition": false, "name": "Александр", "organization_id": "17284da4-af2b-400a-a45e-85c4bb1feb4b", "start_time": null, "surname": "Морозов", "year": 1988},{"bib": 8, "card_number": 61014326, "group_id": "edbc1a2c-59a1-403b-ae4a-cd319ec9429f", "id": "3ad67f5e-cec0-4cb9-99a2-723054adb70d", "is_out_of_competition": false, "name": "Анна", "organization_id": "80342f96-ea1d-49ac-8a2a-3f163e6ba01b", "start_time": null, "surname": "Никитина", "year": 1990},{"bib": 9, "card_number": 61014244, "group_id": "a3229791-4b26-4765-bea8-9a7fd8e6cc1b", "id": "36090b08-5f2b-4bfb-8801-38afbac7d16b", "is_out_of_competition": false, "name": "Яромир", "organization_id": "b1aa860d-2547-45ed-b1ed-0ed15c8482ab", "start_time": null, "surname": "Горин", "year": 2011},{"bib": 10, "card_number": 61014347, "group_id": "a3229791-4b26-4765-bea8-9a7fd8e6cc1b", "id": "d3088a11-fe3a-4fdd-a340-d37c93187937", "is_out_of_competition": false, "name": "Матвей", "organization_id": "b1aa860d-2547-45ed-b1ed-0ed15c8482ab", "start_time": null, "surname": "Чернигов", "year": 2013},{"bib": 11, "card_number": 61014252, "group_id": "2b48ea6c-d865-4877-8a7c-59ff9e69fb7f", "id": "9f61c65d-471b-41d3-a7aa-455a6c12ea37", "is_out_of_competition": false, "name": "Леонид", "organization_id": "00c62b94-4bd4-471a-89e0-d6798baf96e0", "start_time": null, "surname": "Сикоров", "year": 1988},{"bib": 12, "card_number": 61014310, "group_id": "2b48ea6c-d865-4877-8a7c-59ff9e69fb7f", "id": "e4d50558-d00c-4aaa-a837-cf99b65eec1a", "is_out_of_competition": false, "name": "Анатолий", "organization_id": "7f931a6e-25a5-48f2-9322-34d8465a98c2", "start_time": null, "surname": "Чунихин", "year": 1988},{"bib": 13, "card_number": 61014354, "group_id": "03b11fff-1c61-486b-9e23-9336b31fe88b", "id": "66928e32-5626-4374-a91c-4122c0d84cb7", "is_out_of_competition": false, "name": "Игорь", "organization_id": "ed89d1bd-e92e-44ab-b16f-54f75bad3bf4", "start_time": null, "surname": "Гольмаков", "year": 1971},{"bib": 14, "card_number": 61014234, "group_id": "8b609ce0-b417-4cce-b9d6-5b09094307b2", "id": "547ac49a-1ed1-45f7-bd6e-9d427ab77ed7", "is_out_of_competition": false, "name": "Алексей", "organization_id": "98648d27-351b-458d-bc4f-ebe416896b05", "start_time": null, "surname": "Чепенко", "year": 1988},{"bib": 15, "card_number": 61014066, "group_id": "ea8ef6a6-a7dc-4f6c-9519-645e71179130", "id": "b8812d2d-57fc-4949-b843-43f326cb1555", "is_out_of_competition": false, "name": "Александр", "organization_id": "612f4056-5ba3-4828-92ad-4fd2dc82e556", "start_time": null, "surname": "Карушев", "year": 1986},{"bib": 16, "card_number": 61014127, "group_id": "8b609ce0-b417-4cce-b9d6-5b09094307b2", "id": "b0fe5eb9-c506-4840-9da4-d9937e872310", "is_out_of_competition": false, "name": "Антон", "organization_id": "ed46920a-3c8b-46c6-a2d1-e75aac63e205", "start_time": null, "surname": "Чепель", "year": 1990},{"bib": 17, "card_number": 61014102, "group_id": "2b48ea6c-d865-4877-8a7c-59ff9e69fb7f", "id": "46ccc9a0-9a84-495e-936c-29982155d756", "is_out_of_competition": false, "name": "Андрей", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Тихонов", "year": 1992},{"bib": 18, "card_number": 61014247, "group_id": "2b48ea6c-d865-4877-8a7c-59ff9e69fb7f", "id": "64734b99-8a6d-441b-9afa-af5fec840f80", "is_out_of_competition": false, "name": "Андрей", "organization_id": "a4e13553-b3ff-4e85-b987-bb7098ae834a", "start_time": null, "surname": "Громов", "year": 1988},{"bib": 19, "card_number": 61014131, "group_id": "2b48ea6c-d865-4877-8a7c-59ff9e69fb7f", "id": "9023b6c7-f4f5-47d2-843b-bf389602320f", "is_out_of_competition": false, "name": "Кирилл", "organization_id": "16b5362a-e5e7-4708-8ffa-85197cc5a73a", "start_time": null, "surname": "Серогодский", "year": 1987},{"bib": 20, "card_number": 61014118, "group_id": "ea8ef6a6-a7dc-4f6c-9519-645e71179130", "id": "38f9d976-d348-4861-ae73-fd52669bb8b8", "is_out_of_competition": false, "name": "Антон", "organization_id": "612f4056-5ba3-4828-92ad-4fd2dc82e556", "start_time": null, "surname": "Ежов", "year": 1984},{"bib": 21, "card_number": 61014177, "group_id": "8b609ce0-b417-4cce-b9d6-5b09094307b2", "id": "00212b0b-6f07-4ad6-93b3-c4a3e627a4d6", "is_out_of_competition": false, "name": "Сергей", "organization_id": "612f4056-5ba3-4828-92ad-4fd2dc82e556", "start_time": null, "surname": "Шайтанов", "year": 1991},{"bib": 22, "card_number": 61014248, "group_id": "2b48ea6c-d865-4877-8a7c-59ff9e69fb7f", "id": "b7c77e7e-aacc-40e4-9a1f-bb399c90b738", "is_out_of_competition": false, "name": "Сергей", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Павлушин", "year": 1989},{"bib": 23, "card_number": 61014096, "group_id": "8b609ce0-b417-4cce-b9d6-5b09094307b2", "id": "0a6dc8c7-7871-4155-b203-3b7b5ce60c43", "is_out_of_competition": false, "name": "Максим", "organization_id": "93388586-6cbd-4337-bdb3-0b5965d7ddf0", "start_time": null, "surname": "Кривоконев", "year": 1980},{"bib": 24, "card_number": 61014307, "group_id": "e56e3a97-02e5-4896-9978-a030e4aa4182", "id": "bcb00ce7-de6e-4c9a-bc66-be7eb70687ca", "is_out_of_competition": false, "name": "Полина", "organization_id": "b1aa860d-2547-45ed-b1ed-0ed15c8482ab", "start_time": null, "surname": "Логинова", "year": 1997},{"bib": 25, "card_number": 61014301, "group_id": "ea8ef6a6-a7dc-4f6c-9519-645e71179130", "id": "26516519-260a-46d1-9eaa-41d7e95b2e82", "is_out_of_competition": false, "name": "Алексей", "organization_id": "612f4056-5ba3-4828-92ad-4fd2dc82e556", "start_time": null, "surname": "Жученко", "year": 1984},{"bib": 26, "card_number": 61014260, "group_id": "a9dcad6e-6bcd-4920-94aa-b6cce0a6188d", "id": "e2896897-adea-453d-b4ce-59a78711d646", "is_out_of_competition": false, "name": "Вера", "organization_id": "612f4056-5ba3-4828-92ad-4fd2dc82e556", "start_time": null, "surname": "Жученко", "year": 1982},{"bib": 27, "card_number": 61014103, "group_id": "2b48ea6c-d865-4877-8a7c-59ff9e69fb7f", "id": "f1371820-8212-45c5-83a1-3aeffd3231df", "is_out_of_competition": false, "name": "Леонид", "organization_id": "b1aa860d-2547-45ed-b1ed-0ed15c8482ab", "start_time": null, "surname": "Трифонов", "year": 1989},{"bib": 28, "card_number": 61014303, "group_id": "ea8ef6a6-a7dc-4f6c-9519-645e71179130", "id": "3aad25c9-9cbd-463a-a8e0-922301978869", "is_out_of_competition": false, "name": "Денис", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Тулинцев", "year": 1983},{"bib": 29, "card_number": 61014185, "group_id": "a9dcad6e-6bcd-4920-94aa-b6cce0a6188d", "id": "ef03dc50-889b-444d-b6c0-2eb3346b9034", "is_out_of_competition": false, "name": "Светлана", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Радзениеце", "year": 1976},{"bib": 30, "card_number": 61014156, "group_id": "8b609ce0-b417-4cce-b9d6-5b09094307b2", "id": "757c071a-dbf6-4537-a7db-e953251073ba", "is_out_of_competition": false, "name": "Алексей", "organization_id": "7f931a6e-25a5-48f2-9322-34d8465a98c2", "start_time": null, "surname": "Пышков", "year": 1985},{"bib": 31, "card_number": 61014302, "group_id": "3b6b20fc-6243-4e1c-aada-c26a6de64ee9", "id": "d55cd2cd-f2a5-4397-bdfe-16eb93dc32e9", "is_out_of_competition": false, "name": "Алексей", "organization_id": "b1aa860d-2547-45ed-b1ed-0ed15c8482ab", "start_time": null, "surname": "Волков", "year": 1984},{"bib": 32, "card_number": 61014270, "group_id": "a9dcad6e-6bcd-4920-94aa-b6cce0a6188d", "id": "a95cea8f-3883-4349-83a5-3cd9d1caa9f4", "is_out_of_competition": false, "name": "Екатерина", "organization_id": "b1aa860d-2547-45ed-b1ed-0ed15c8482ab", "start_time": null, "surname": "Волкова", "year": 1984},{"bib": 33, "card_number": 61014254, "group_id": "2b48ea6c-d865-4877-8a7c-59ff9e69fb7f", "id": "a2f38666-a834-48f0-a4ee-dbaaef8fcf2c", "is_out_of_competition": false, "name": "Андрей", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Ушаков", "year": 1987},{"bib": 34, "card_number": 61014249, "group_id": "ea8ef6a6-a7dc-4f6c-9519-645e71179130", "id": "354865e5-3656-4a42-9369-0858c3ffa9a0", "is_out_of_competition": false, "name": "Владимир", "organization_id": "5253d2ff-a1bd-41fd-8537-ec85c3301777", "start_time": null, "surname": "Ильин", "year": 1984},{"bib": 35, "card_number": 61014086, "group_id": "2b48ea6c-d865-4877-8a7c-59ff9e69fb7f", "id": "f48639d0-4054-4bbc-bdd0-b30e2b3db5ea", "is_out_of_competition": false, "name": "Владислав", "organization_id": "5253d2ff-a1bd-41fd-8537-ec85c3301777", "start_time": null, "surname": "Рудницкий", "year": 1990},{"bib": 36, "card_number": 61014194, "group_id": "a9dcad6e-6bcd-4920-94aa-b6cce0a6188d", "id": "38b274ab-e3e1-4a0f-aa28-707b7b731ddd", "is_out_of_competition": false, "name": "Юлия", "organization_id": "b1aa860d-2547-45ed-b1ed-0ed15c8482ab", "start_time": null, "surname": "Балескина", "year": 1982},{"bib": 37, "card_number": 61014060, "group_id": "ea8ef6a6-a7dc-4f6c-9519-645e71179130", "id": "5a9e3453-5657-4873-8514-e7b7f473fb0e", "is_out_of_competition": false, "name": "Михаил", "organization_id": "b1aa860d-2547-45ed-b1ed-0ed15c8482ab", "start_time": null, "surname": "Коротаев", "year": 1978},{"bib": 38, "card_number": 61014309, "group_id": "2b48ea6c-d865-4877-8a7c-59ff9e69fb7f", "id": "601f28f1-c2a0-4536-8f50-e99312638482", "is_out_of_competition": false, "name": "Олег", "organization_id": "b1aa860d-2547-45ed-b1ed-0ed15c8482ab", "start_time": null, "surname": "Басурин", "year": 1990},{"bib": 39, "card_number": 61014120, "group_id": "8b609ce0-b417-4cce-b9d6-5b09094307b2", "id": "0e96c018-8405-43e0-8041-488e5a7b1e0d", "is_out_of_competition": false, "name": "Александр", "organization_id": "bc82a16d-6d0a-48d6-984f-d5cdf1a696c8", "start_time": null, "surname": "Савченко", "year": 1982},{"bib": 40, "card_number": 61014229, "group_id": "8b609ce0-b417-4cce-b9d6-5b09094307b2", "id": "289b77df-1777-4972-a8bf-3e3c5f5729e0", "is_out_of_competition": false, "name": "Павел", "organization_id": "492184b6-8da0-4f27-b812-b40ba3a78e18", "start_time": null, "surname": "Вяткин", "year": 1993},{"bib": 41, "card_number": 61014317, "group_id": "2b48ea6c-d865-4877-8a7c-59ff9e69fb7f", "id": "304e7b0c-7960-4aa4-9f9f-f005b22b5157", "is_out_of_competition": false, "name": "Леонид", "organization_id": "5253d2ff-a1bd-41fd-8537-ec85c3301777", "start_time": null, "surname": "Иваненко", "year": 1993},{"bib": 42, "card_number": 61014082, "group_id": "a3229791-4b26-4765-bea8-9a7fd8e6cc1b", "id": "9be25e93-422c-4664-92be-51019815e8e5", "is_out_of_competition": false, "name": "Иларион", "organization_id": "b1aa860d-2547-45ed-b1ed-0ed15c8482ab", "start_time": null, "surname": "Бокарев", "year": 2013},{"bib": 43, "card_number": 61014189, "group_id": "2b48ea6c-d865-4877-8a7c-59ff9e69fb7f", "id": "7e301f9b-89c2-41d0-98a9-1ac6927a7a8f", "is_out_of_competition": false, "name": "Максим", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Ращепкин", "year": 1988},{"bib": 44, "card_number": 61014196, "group_id": "8b609ce0-b417-4cce-b9d6-5b09094307b2", "id": "6e354875-7a1d-445e-8a7c-817a5f4f2131", "is_out_of_competition": false, "name": "Артур", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Федосов", "year": 1987},{"bib": 45, "card_number": 61014344, "group_id": "ea8ef6a6-a7dc-4f6c-9519-645e71179130", "id": "4b8e1967-2f73-4c3a-a47d-fa89007e03ae", "is_out_of_competition": false, "name": "Андрей", "organization_id": "97d64157-aa73-4b30-844b-2b4243194072", "start_time": null, "surname": "Коновалов", "year": 1984},{"bib": 46, "card_number": 61014295, "group_id": "a3229791-4b26-4765-bea8-9a7fd8e6cc1b", "id": "c0bb6ae7-efbf-4bc5-b4c5-f0fb8b79927d", "is_out_of_competition": false, "name": "Игорь", "organization_id": "b1aa860d-2547-45ed-b1ed-0ed15c8482ab", "start_time": null, "surname": "Горлов", "year": 1998},{"bib": 47, "card_number": 61014111, "group_id": "ea8ef6a6-a7dc-4f6c-9519-645e71179130", "id": "d47fe13d-6fa7-4fb6-8fea-6a25c13d5b41", "is_out_of_competition": false, "name": "Вадим", "organization_id": "218963a5-6989-4c8e-8730-b49b40736a76", "start_time": null, "surname": "Хазов", "year": 1983},{"bib": 48, "card_number": 61014348, "group_id": "2b48ea6c-d865-4877-8a7c-59ff9e69fb7f", "id": "7b579343-fd26-428e-a769-3afb7fc312f7", "is_out_of_competition": false, "name": "Алексей", "organization_id": "faf64be0-e4c7-4998-8904-242e1686c561", "start_time": null, "surname": "Кущиков", "year": 1988},{"bib": 49, "card_number": 61014171, "group_id": "a9dcad6e-6bcd-4920-94aa-b6cce0a6188d", "id": "16ee9bc8-30a9-4128-8362-bea17cfd4479", "is_out_of_competition": false, "name": "Елена", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Князева", "year": 1982},{"bib": 50, "card_number": 61014106, "group_id": "a4e258ac-5fda-4d92-bbb9-af0b0632846d", "id": "a2c04ef8-7ce5-484e-b47b-22161bd7bab9", "is_out_of_competition": false, "name": "Анастасия", "organization_id": "612f4056-5ba3-4828-92ad-4fd2dc82e556", "start_time": null, "surname": "Струмпэ", "year": 1984},{"bib": 51, "card_number": 61014228, "group_id": "2b48ea6c-d865-4877-8a7c-59ff9e69fb7f", "id": "4c4ae4eb-4319-4066-a892-d0cadb8d38b2", "is_out_of_competition": false, "name": "Антон", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Бадрилов", "year": 1993},{"bib": 52, "card_number": 61014089, "group_id": "ea8ef6a6-a7dc-4f6c-9519-645e71179130", "id": "dae74f3b-5c0e-482a-ae3a-4c86be0fbf12", "is_out_of_competition": false, "name": "Юрий", "organization_id": "faf64be0-e4c7-4998-8904-242e1686c561", "start_time": null, "surname": "Рябов", "year": 1985},{"bib": 53, "card_number": 61014158, "group_id": "ea8ef6a6-a7dc-4f6c-9519-645e71179130", "id": "325b587d-2428-49bb-81e7-322da137ed87", "is_out_of_competition": false, "name": "Леонид", "organization_id": "612f4056-5ba3-4828-92ad-4fd2dc82e556", "start_time": null, "surname": "Малышев", "year": 1983},{"bib": 54, "card_number": 61014188, "group_id": "8b609ce0-b417-4cce-b9d6-5b09094307b2", "id": "73003ff6-67f6-4e9c-bb5d-3eefda937cdf", "is_out_of_competition": false, "name": "Роман", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Полонский", "year": 1978},{"bib": 55, "card_number": 61014148, "group_id": "a9dcad6e-6bcd-4920-94aa-b6cce0a6188d", "id": "cf205307-9d25-4971-add2-dcf757f9bb83", "is_out_of_competition": false, "name": "Анастасия", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Чижова", "year": 1986},{"bib": 56, "card_number": 61014140, "group_id": "03b11fff-1c61-486b-9e23-9336b31fe88b", "id": "45cd722a-2ccb-4ab2-986a-6d9aa7c99ef7", "is_out_of_competition": false, "name": "Сергей", "organization_id": "612f4056-5ba3-4828-92ad-4fd2dc82e556", "start_time": null, "surname": "Скуратов", "year": 1969},{"bib": 57, "card_number": 61014092, "group_id": "a9dcad6e-6bcd-4920-94aa-b6cce0a6188d", "id": "b9ccc240-3f32-43ce-80a6-60fcc4f5b546", "is_out_of_competition": false, "name": "Ирина", "organization_id": "612f4056-5ba3-4828-92ad-4fd2dc82e556", "start_time": null, "surname": "Дрозд", "year": 1975},{"bib": 58, "card_number": 61014142, "group_id": "a3229791-4b26-4765-bea8-9a7fd8e6cc1b", "id": "345edc59-ab3f-4c08-8155-de0a0f14a39a", "is_out_of_competition": false, "name": "Дмитрий", "organization_id": "612f4056-5ba3-4828-92ad-4fd2dc82e556", "start_time": null, "surname": "Баранов", "year": 1997},{"bib": 59, "card_number": 61014128, "group_id": "a9dcad6e-6bcd-4920-94aa-b6cce0a6188d", "id": "15f0ddde-5c5f-44cb-bd4e-4beae249f037", "is_out_of_competition": false, "name": "Дарья", "organization_id": "612f4056-5ba3-4828-92ad-4fd2dc82e556", "start_time": null, "surname": "Пыркова", "year": 1984},{"bib": 60, "card_number": 61014278, "group_id": "ea8ef6a6-a7dc-4f6c-9519-645e71179130", "id": "5543443b-c8a1-4452-91e6-f78a647bed14", "is_out_of_competition": false, "name": "Анатолий", "organization_id": "612f4056-5ba3-4828-92ad-4fd2dc82e556", "start_time": null, "surname": "Моисеев", "year": 1979},{"bib": 61, "card_number": 61014183, "group_id": "a4e258ac-5fda-4d92-bbb9-af0b0632846d", "id": "857a2b10-2b15-43be-90f5-50f2f64bf5b4", "is_out_of_competition": false, "name": "Олеся", "organization_id": "612f4056-5ba3-4828-92ad-4fd2dc82e556", "start_time": null, "surname": "Кириленко", "year": 1983},{"bib": 62, "card_number": 61014331, "group_id": "a3229791-4b26-4765-bea8-9a7fd8e6cc1b", "id": "9af29a49-8c66-4af1-8d69-60d89eb1c56d", "is_out_of_competition": false, "name": "Артём", "organization_id": "bca8255a-277d-4d4e-b66b-67274f1b36a3", "start_time": null, "surname": "Неретин", "year": 2010},{"bib": 63, "card_number": 61014257, "group_id": "03b11fff-1c61-486b-9e23-9336b31fe88b", "id": "5b6cc652-0546-4019-bed7-93db20b00c75", "is_out_of_competition": false, "name": "Владимир", "organization_id": "38deafb5-858f-423a-b741-1c92bf47c944", "start_time": null, "surname": "Смогоржевский", "year": 1970},{"bib": 64, "card_number": 61014212, "group_id": "a3229791-4b26-4765-bea8-9a7fd8e6cc1b", "id": "5b6990eb-bd12-476d-8f22-ab609bbc5bae", "is_out_of_competition": false, "name": "Юрий", "organization_id": "4ad641fa-250d-47d8-b808-dc11ab2d7f1f", "start_time": null, "surname": "Щетвин", "year": 2011},{"bib": 65, "card_number": 61014088, "group_id": "2b48ea6c-d865-4877-8a7c-59ff9e69fb7f", "id": "c057f0dc-a606-4bf3-88e4-fdf799ad5dd1", "is_out_of_competition": false, "name": "Константин", "organization_id": "b1aa860d-2547-45ed-b1ed-0ed15c8482ab", "start_time": null, "surname": "Беломестнов", "year": 1988},{"bib": 66, "card_number": 61014085, "group_id": "03b11fff-1c61-486b-9e23-9336b31fe88b", "id": "2d7523ad-6050-49f8-95a3-2523e1ae40c5", "is_out_of_competition": false, "name": "Михаил", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Кирьянов", "year": 1964},{"bib": 67, "card_number": 61014227, "group_id": "ea8ef6a6-a7dc-4f6c-9519-645e71179130", "id": "faf7f995-9705-4213-82c0-0fc6d668dd43", "is_out_of_competition": false, "name": "Михаил", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Солнцев", "year": 1974},{"bib": 68, "card_number": 61014201, "group_id": "2b48ea6c-d865-4877-8a7c-59ff9e69fb7f", "id": "bc4ca83d-7be5-477c-a561-891b806c84e8", "is_out_of_competition": false, "name": "Павел", "organization_id": "faf64be0-e4c7-4998-8904-242e1686c561", "start_time": null, "surname": "Федоров", "year": 1988},{"bib": 69, "card_number": 61014238, "group_id": "edbc1a2c-59a1-403b-ae4a-cd319ec9429f", "id": "409f3683-d23c-48dc-9d2c-fb59ba3b3860", "is_out_of_competition": false, "name": "Ольга", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Курлович", "year": 1992},{"bib": 70, "card_number": 61014099, "group_id": "8b609ce0-b417-4cce-b9d6-5b09094307b2", "id": "b8a70760-9c5c-4a0b-ae77-d4f3ee4c5565", "is_out_of_competition": false, "name": "Алексей", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Боровой", "year": 1990},{"bib": 71, "card_number": 61014263, "group_id": "a3229791-4b26-4765-bea8-9a7fd8e6cc1b", "id": "ab6cf9ff-05a7-4e0e-9ce4-d1f5fb008dbd", "is_out_of_competition": false, "name": "Даниил", "organization_id": "b1aa860d-2547-45ed-b1ed-0ed15c8482ab", "start_time": null, "surname": "Скрипников", "year": 2010},{"bib": 72, "card_number": 61014275, "group_id": "03b11fff-1c61-486b-9e23-9336b31fe88b", "id": "636b9924-3e31-4df5-89a4-870e848651b1", "is_out_of_competition": false, "name": "Михаил", "organization_id": "df3c8532-b618-4eca-9e23-359ef214d0cf", "start_time": null, "surname": "Евменов", "year": 1969},{"bib": 73, "card_number": 61014209, "group_id": "a9dcad6e-6bcd-4920-94aa-b6cce0a6188d", "id": "6ce3a874-2497-4ac1-ae84-94a0f5e9cef1", "is_out_of_competition": false, "name": "Ксения", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Чачина", "year": 1978},{"bib": 74, "card_number": 61014190, "group_id": "ea8ef6a6-a7dc-4f6c-9519-645e71179130", "id": "2e7fcfdd-5226-47a5-a5f9-8b40e4e4a8ff", "is_out_of_competition": false, "name": "Максим", "organization_id": "fa361bbb-f5c2-4107-87cf-2f8904611dc4", "start_time": null, "surname": "Ваничкин", "year": 1976},{"bib": 75, "card_number": 61014179, "group_id": "a3229791-4b26-4765-bea8-9a7fd8e6cc1b", "id": "7f3eae07-b0e9-4860-8b9c-eca369f0d46b", "is_out_of_competition": false, "name": "Олег", "organization_id": "faf64be0-e4c7-4998-8904-242e1686c561", "start_time": null, "surname": "Асоцкий", "year": 1997},{"bib": 76, "card_number": 61014318, "group_id": "a3229791-4b26-4765-bea8-9a7fd8e6cc1b", "id": "ad9d02cf-45ad-4077-9eae-a90b5c5bb2c1", "is_out_of_competition": false, "name": "Алексей", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Гумбин", "year": 1998},{"bib": 77, "card_number": 61014163, "group_id": "03b11fff-1c61-486b-9e23-9336b31fe88b", "id": "d9e20279-eeaf-4c66-b6f4-a597bf3797cb", "is_out_of_competition": false, "name": "Лев", "organization_id": "6c64761a-6de8-469f-88d8-72ec07ba7e3f", "start_time": null, "surname": "Иноятов", "year": 1964},{"bib": 78, "card_number": 61014337, "group_id": "ea8ef6a6-a7dc-4f6c-9519-645e71179130", "id": "6cd0a28b-3764-4a09-9a46-a00f24f9f09a", "is_out_of_competition": false, "name": "Николай", "organization_id": "b1aa860d-2547-45ed-b1ed-0ed15c8482ab", "start_time": null, "surname": "Колосков", "year": 1982},{"bib": 79, "card_number": 61014300, "group_id": "2b48ea6c-d865-4877-8a7c-59ff9e69fb7f", "id": "5327a1c1-6682-420d-ad36-def1e90f1dad", "is_out_of_competition": false, "name": "Алексей", "organization_id": "38deafb5-858f-423a-b741-1c92bf47c944", "start_time": null, "surname": "Ананьин", "year": 1989},{"bib": 80, "card_number": 61014276, "group_id": "3b6b20fc-6243-4e1c-aada-c26a6de64ee9", "id": "95e91cbe-2f10-44c4-ae76-97f668e60a2d", "is_out_of_competition": false, "name": "Александр", "organization_id": "1b94d2fa-1505-472a-bbf1-14d139d82af6", "start_time": null, "surname": "Агапов", "year": 1985},{"bib": 81, "card_number": 61014098, "group_id": "ea8ef6a6-a7dc-4f6c-9519-645e71179130", "id": "fc1c853d-894a-4024-beb6-b911478144ea", "is_out_of_competition": false, "name": "Александр", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Байкин", "year": 1975},{"bib": 82, "card_number": 61014245, "group_id": "a9dcad6e-6bcd-4920-94aa-b6cce0a6188d", "id": "22650c9a-1f6d-4086-be4b-5df1ee8a8649", "is_out_of_competition": false, "name": "Софья", "organization_id": "7a4ed1c6-6f8c-4071-996b-74107e5db9e3", "start_time": null, "surname": "Щербакова", "year": 1983},{"bib": 83, "card_number": 61014083, "group_id": "a4e258ac-5fda-4d92-bbb9-af0b0632846d", "id": "7c1b32bc-4058-4ad8-8c27-f10931b83794", "is_out_of_competition": false, "name": "Александр", "organization_id": "df3c8532-b618-4eca-9e23-359ef214d0cf", "start_time": null, "surname": "Удовенко", "year": 1981},{"bib": 84, "card_number": 61014287, "group_id": "ea8ef6a6-a7dc-4f6c-9519-645e71179130", "id": "5f564297-6618-4940-86e4-1028177c402c", "is_out_of_competition": false, "name": "Григорий", "organization_id": "612f4056-5ba3-4828-92ad-4fd2dc82e556", "start_time": null, "surname": "Бойков", "year": 1985},{"bib": 85, "card_number": 61014258, "group_id": "ea8ef6a6-a7dc-4f6c-9519-645e71179130", "id": "bfdbf34e-9de0-4b95-be96-4050b89af661", "is_out_of_competition": false, "name": "Михаил", "organization_id": "b1aa860d-2547-45ed-b1ed-0ed15c8482ab", "start_time": null, "surname": "Давиденко", "year": 1981},{"bib": 86, "card_number": 61014170, "group_id": null, "id": "458a6e32-6b47-454c-b226-24aeed1c6ccc", "is_out_of_competition": false, "name": "", "organization_id": null, "start_time": null, "surname": ".", "year": 0},{"bib": 87, "card_number": 61014070, "group_id": null, "id": "3f563438-092e-445a-9df5-74a512c616e4", "is_out_of_competition": false, "name": "", "organization_id": null, "start_time": null, "surname": ".", "year": 0},{"bib": 88, "card_number": 61014122, "group_id": null, "id": "c1f572ba-d541-424e-a41a-549f514372cd", "is_out_of_competition": false, "name": "", "organization_id": null, "start_time": null, "surname": ".", "year": 0},{"bib": 89, "card_number": 61014178, "group_id": null, "id": "df62dcd4-ee9d-4611-a6c6-6f0b4c462af5", "is_out_of_competition": false, "name": "", "organization_id": null, "start_time": null, "surname": ".", "year": 0},{"bib": 90, "card_number": 61014062, "group_id": null, "id": "547b7ed3-c58d-4d05-adc6-900c0d8c8d0e", "is_out_of_competition": false, "name": "", "organization_id": null, "start_time": null, "surname": ".", "year": 0},{"bib": 91, "card_number": 61014277, "group_id": null, "id": "f9476d88-b638-4b1f-b678-28d8ac4a93ff", "is_out_of_competition": false, "name": "", "organization_id": null, "start_time": null, "surname": ".", "year": 0},{"bib": 92, "card_number": 61014335, "group_id": null, "id": "76cd3cfc-5878-4da2-a008-462937879784", "is_out_of_competition": false, "name": "", "organization_id": null, "start_time": null, "surname": ".", "year": 0},{"bib": 93, "card_number": 61014058, "group_id": null, "id": "2c5c04bb-3a0d-4301-9c4d-18a98c30b3f7", "is_out_of_competition": false, "name": "", "organization_id": null, "start_time": null, "surname": ".", "year": 0},{"bib": 94, "card_number": 61014112, "group_id": null, "id": "53e6a163-fd6d-48e4-b17c-cedadb988c56", "is_out_of_competition": false, "name": "", "organization_id": null, "start_time": null, "surname": ".", "year": 0},{"bib": 95, "card_number": 61014216, "group_id": null, "id": "1b8f8df6-c402-4f97-ba0a-469faff8b806", "is_out_of_competition": false, "name": "", "organization_id": null, "start_time": null, "surname": ".", "year": 0},{"bib": 96, "card_number": 61014269, "group_id": null, "id": "a955a59a-761b-4fb3-bda1-8b499c71d436", "is_out_of_competition": false, "name": "", "organization_id": null, "start_time": null, "surname": ".", "year": 0},{"bib": 97, "card_number": 61014255, "group_id": null, "id": "57845ffb-2470-47aa-8fc9-87ad4a26b8ba", "is_out_of_competition": false, "name": "", "organization_id": null, "start_time": null, "surname": ".", "year": 0},{"bib": 98, "card_number": 61014289, "group_id": null, "id": "fdb5a2a4-526c-4727-855a-a5a571d27a8a", "is_out_of_competition": false, "name": "", "organization_id": null, "start_time": null, "surname": ".", "year": 0},{"bib": 99, "card_number": 61014176, "group_id": null, "id": "6bb96247-cb86-412b-8065-b7d5ef495e7a", "is_out_of_competition": false, "name": "", "organization_id": null, "start_time": null, "surname": ".", "year": 0},{"bib": 100, "card_number": 61014291, "group_id": "91d9c11b-48ee-4d17-ad38-4f07e62d58f0", "id": "22f123aa-f924-4f38-9209-f1f3a890c91a", "is_out_of_competition": false, "name": "Назар", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Сенченко", "year": 2018},{"bib": 101, "card_number": 61014080, "group_id": "ae779059-6494-4645-8879-e950d50e89ed", "id": "3f1ca29c-49a2-4dd6-b0be-198db4c468de", "is_out_of_competition": false, "name": "Надежда", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Коновалова", "year": 2016},{"bib": 102, "card_number": 61014264, "group_id": "91d9c11b-48ee-4d17-ad38-4f07e62d58f0", "id": "c532e95b-f49a-44cf-b440-bf787324617d", "is_out_of_competition": false, "name": "Святослав", "organization_id": "b1aa860d-2547-45ed-b1ed-0ed15c8482ab", "start_time": null, "surname": "Кальсин", "year": 2018},{"bib": 103, "card_number": 61014282, "group_id": "91d9c11b-48ee-4d17-ad38-4f07e62d58f0", "id": "0dec043d-f00e-4b69-b1a8-dde5ad472390", "is_out_of_competition": false, "name": "Степан", "organization_id": "00c62b94-4bd4-471a-89e0-d6798baf96e0", "start_time": null, "surname": "Сикоров", "year": 2017},{"bib": 104, "card_number": 61014165, "group_id": "91d9c11b-48ee-4d17-ad38-4f07e62d58f0", "id": "23ebbd7d-0865-4564-b9b4-4d5126eba3d0", "is_out_of_competition": false, "name": "Филипп", "organization_id": "f721c336-54ac-48ce-a681-1f4369d55b07", "start_time": null, "surname": "Серогодский", "year": 2018},{"bib": 105, "card_number": 61014091, "group_id": "91d9c11b-48ee-4d17-ad38-4f07e62d58f0", "id": "5b68c45b-4fff-4d5d-bf91-48feeeef6e79", "is_out_of_competition": false, "name": "Сергей", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Шелевей", "year": 2018},{"bib": 106, "card_number": 61014187, "group_id": "91d9c11b-48ee-4d17-ad38-4f07e62d58f0", "id": "96f03e32-d667-44c0-915b-4c692246739f", "is_out_of_competition": false, "name": "Егор", "organization_id": "17284da4-af2b-400a-a45e-85c4bb1feb4b", "start_time": null, "surname": "Макаров", "year": 2018},{"bib": 107, "card_number": 61014052, "group_id": "913702b3-1bc1-446f-a557-b4170cd241ea", "id": "6e498dc6-6165-4e8e-a798-a52f21288d86", "is_out_of_competition": false, "name": "Артём", "organization_id": "b1aa860d-2547-45ed-b1ed-0ed15c8482ab", "start_time": null, "surname": "Волков", "year": 2014},{"bib": 108, "card_number": 61014109, "group_id": "c42b8221-63c7-43e7-bd4d-45be8336dc01", "id": "fd964336-79f1-411b-baa6-6837e715d2a2", "is_out_of_competition": false, "name": "Дарья", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Калинина", "year": 2018},{"bib": 109, "card_number": 61014321, "group_id": "91d9c11b-48ee-4d17-ad38-4f07e62d58f0", "id": "73d8f34e-d4b6-43e1-853a-74ca12b51d48", "is_out_of_competition": false, "name": "Макар", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Яблонский", "year": 2017},{"bib": 110, "card_number": 61014217, "group_id": "913702b3-1bc1-446f-a557-b4170cd241ea", "id": "b0229234-53e6-4dcd-9272-a36c14a0221a", "is_out_of_competition": false, "name": "Александр", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Рябов", "year": 2016},{"bib": 111, "card_number": 61014138, "group_id": "91d9c11b-48ee-4d17-ad38-4f07e62d58f0", "id": "85bb73da-886b-4dc1-b7cc-509209379a5e", "is_out_of_competition": false, "name": "Михаил", "organization_id": "612f4056-5ba3-4828-92ad-4fd2dc82e556", "start_time": null, "surname": "Кириленко", "year": 2019},{"bib": 112, "card_number": 61014059, "group_id": "913702b3-1bc1-446f-a557-b4170cd241ea", "id": "d4f12e33-733c-43a1-9928-ebb2db76ab68", "is_out_of_competition": false, "name": "Артём", "organization_id": "58cbe416-ad28-4f31-ba83-cdc8dcb59406", "start_time": null, "surname": "Мезинов", "year": 2016},{"bib": 113, "card_number": 61014330, "group_id": "913702b3-1bc1-446f-a557-b4170cd241ea", "id": "ec32762e-8875-4704-a05e-1f7c368ba26a", "is_out_of_competition": false, "name": "Данила", "organization_id": "b1aa860d-2547-45ed-b1ed-0ed15c8482ab", "start_time": null, "surname": "Беломестнов", "year": 2016},{"bib": 114, "card_number": 61014180, "group_id": "913702b3-1bc1-446f-a557-b4170cd241ea", "id": "9984136b-a318-4187-8aa2-2e4393cf81ed", "is_out_of_competition": false, "name": "Кирилл", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Колесников", "year": 2016},{"bib": 115, "card_number": 61014136, "group_id": "91d9c11b-48ee-4d17-ad38-4f07e62d58f0", "id": "22065b0d-16a5-4399-9955-71ef1a51b1fc", "is_out_of_competition": false, "name": "Иван", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Демихов", "year": 2018},{"bib": 116, "card_number": 61014299, "group_id": "ae779059-6494-4645-8879-e950d50e89ed", "id": "07039125-96ca-4e1a-8a07-46f9f5d4fd26", "is_out_of_competition": false, "name": "Добромира", "organization_id": "7b5757af-29ff-4192-84de-73beba9c230a", "start_time": null, "surname": "Кущикова", "year": 2016},{"bib": 117, "card_number": 61014261, "group_id": "c42b8221-63c7-43e7-bd4d-45be8336dc01", "id": "531e4e43-aea6-4241-a1a2-8b731d42636a", "is_out_of_competition": false, "name": "Прасковья", "organization_id": "492184b6-8da0-4f27-b812-b40ba3a78e18", "start_time": null, "surname": "Щербакова", "year": 2017},{"bib": 118, "card_number": 61014311, "group_id": "913702b3-1bc1-446f-a557-b4170cd241ea", "id": "2380845e-ac5c-42a1-be27-30b70fa690e8", "is_out_of_competition": false, "name": "Лев", "organization_id": "df3c8532-b618-4eca-9e23-359ef214d0cf", "start_time": null, "surname": "Удовенко", "year": 2015},{"bib": 119, "card_number": 61014327, "group_id": null, "id": "224aa3e7-aad5-4fa8-9bf5-e11cb044dda3", "is_out_of_competition": false, "name": "", "organization_id": null, "start_time": null, "surname": ".", "year": 0},{"bib": 120, "card_number": 61014204, "group_id": null, "id": "a1f7ab91-d2bf-4f28-bbd8-b6c0b2d8e905", "is_out_of_competition": false, "name": "", "organization_id": null, "start_time": null, "surname": ".", "year": 0},{"bib": 121, "card_number": 61014139, "group_id": null, "id": "6bfbfc2f-4e3f-414f-bfe3-b12690e40e15", "is_out_of_competition": false, "name": "", "organization_id": null, "start_time": null, "surname": ".", "year": 0},{"bib": 122, "card_number": 61014298, "group_id": null, "id": "08bbf4e9-22ec-40fb-b031-ab300ec8c60e", "is_out_of_competition": false, "name": "", "organization_id": null, "start_time": null, "surname": ".", "year": 0},{"bib": 123, "card_number": 61014063, "group_id": null, "id": "257d1aba-3236-45ee-bac4-b22135b0664b", "is_out_of_competition": false, "name": "", "organization_id": null, "start_time": null, "surname": ".", "year": 0},{"bib": 124, "card_number": 61014168, "group_id": null, "id": "94fe4abd-3d5f-4efc-9667-64672789b91c", "is_out_of_competition": false, "name": "", "organization_id": null, "start_time": null, "surname": ".", "year": 0},{"bib": 125, "card_number": 61014150, "group_id": null, "id": "944bfdac-c027-425f-b134-0e9847faeb60", "is_out_of_competition": false, "name": "", "organization_id": null, "start_time": null, "surname": ".", "year": 0},{"bib": 126, "card_number": 61014115, "group_id": null, "id": "1f5e420b-a623-40ff-90bc-6c1fd47632ac", "is_out_of_competition": false, "name": "", "organization_id": null, "start_time": null, "surname": ".", "year": 0},{"bib": 127, "card_number": 61014149, "group_id": null, "id": "3051d74b-9b1b-4952-bd89-ac201a9fcf06", "is_out_of_competition": false, "name": "", "organization_id": null, "start_time": null, "surname": ".", "year": 0},{"bib": 128, "card_number": 61014144, "group_id": null, "id": "52bebc13-88a3-417a-bba5-ae043c254080", "is_out_of_competition": false, "name": "", "organization_id": null, "start_time": null, "surname": ".", "year": 0},{"bib": 129, "card_number": 61014064, "group_id": null, "id": "1cb41ccb-abd0-41a7-9cdf-8258b6f1d909", "is_out_of_competition": false, "name": "", "organization_id": null, "start_time": null, "surname": ".", "year": 0},{"bib": 200, "card_number": 61014133, "group_id": "7296b8ba-8f3a-4917-a04c-ec4a45d6b4f3", "id": "79029887-97d6-407c-8254-11f9fa52246e", "is_out_of_competition": false, "name": "Василий", "organization_id": "bd128198-fba2-40e6-8917-26ded7db1ce7", "start_time": null, "surname": "Сучков", "year": 1994},{"bib": 201, "card_number": 61014246, "group_id": "7296b8ba-8f3a-4917-a04c-ec4a45d6b4f3", "id": "a945ac96-8666-4bbd-9ea2-ded2bf175e78", "is_out_of_competition": false, "name": "Анастасия", "organization_id": "bd128198-fba2-40e6-8917-26ded7db1ce7", "start_time": null, "surname": "Федорова", "year": 2011},{"bib": 202, "card_number": 61014267, "group_id": "7296b8ba-8f3a-4917-a04c-ec4a45d6b4f3", "id": "ba8cf1bd-60e0-44ac-8f96-5ac68db17138", "is_out_of_competition": false, "name": "Дмитрий", "organization_id": "284b53f4-0376-4566-89cd-734d91cd9bef", "start_time": null, "surname": "Куркин", "year": 1981},{"bib": 203, "card_number": 61014152, "group_id": "7296b8ba-8f3a-4917-a04c-ec4a45d6b4f3", "id": "f42df2d9-dc53-4547-929d-c093f3ec8a3e", "is_out_of_competition": false, "name": "Ольга", "organization_id": "284b53f4-0376-4566-89cd-734d91cd9bef", "start_time": null, "surname": "Куркина", "year": 1985},{"bib": 204, "card_number": 61014312, "group_id": "7296b8ba-8f3a-4917-a04c-ec4a45d6b4f3", "id": "4ad27417-601f-4d1c-861f-5bcd43f242fe", "is_out_of_competition": false, "name": "Полина", "organization_id": "62ad27e6-302d-49a7-b72b-341a98ae4849", "start_time": null, "surname": "Смирнова", "year": 1992},{"bib": 205, "card_number": 61014283, "group_id": "7296b8ba-8f3a-4917-a04c-ec4a45d6b4f3", "id": "fe337e07-f229-4e09-ae83-d84d68ee1e0e", "is_out_of_competition": false, "name": "Иван", "organization_id": "62ad27e6-302d-49a7-b72b-341a98ae4849", "start_time": null, "surname": "Смирнов", "year": 1991},{"bib": 206, "card_number": 61014250, "group_id": "7296b8ba-8f3a-4917-a04c-ec4a45d6b4f3", "id": "b04818f1-ed88-4b0c-aac0-c1ad2b956892", "is_out_of_competition": false, "name": "Анастасия", "organization_id": "c4a33d38-5102-4dae-bab8-8725178e26ee", "start_time": null, "surname": "Зеленова", "year": 1993},{"bib": 207, "card_number": 61014167, "group_id": "7296b8ba-8f3a-4917-a04c-ec4a45d6b4f3", "id": "1fb66815-1212-411c-9e70-62901d169faa", "is_out_of_competition": false, "name": "Георгий", "organization_id": "c4a33d38-5102-4dae-bab8-8725178e26ee", "start_time": null, "surname": "Прокопович", "year": 1979},{"bib": 208, "card_number": 61014054, "group_id": "7296b8ba-8f3a-4917-a04c-ec4a45d6b4f3", "id": "cc2c61dd-6600-4473-bd90-49514794bdf4", "is_out_of_competition": false, "name": "Егор", "organization_id": "cc54a9f6-3fa2-4011-8fe1-49a9fe524fe3", "start_time": null, "surname": "Демин", "year": 1988},{"bib": 209, "card_number": 61014352, "group_id": "7296b8ba-8f3a-4917-a04c-ec4a45d6b4f3", "id": "a4802373-3bc2-4e7a-a62b-de404625fe1e", "is_out_of_competition": false, "name": "Ольга", "organization_id": "cc54a9f6-3fa2-4011-8fe1-49a9fe524fe3", "start_time": null, "surname": "Ковалева", "year": 1988},{"bib": 210, "card_number": 61014215, "group_id": "7296b8ba-8f3a-4917-a04c-ec4a45d6b4f3", "id": "f511a97f-cf6c-401f-8eb8-a2f442eca29e", "is_out_of_competition": false, "name": "Юлия", "organization_id": "24489565-5515-436b-aa94-6c8b67a784cb", "start_time": null, "surname": "Пиотровская", "year": 1990},{"bib": 211, "card_number": 61014339, "group_id": "7296b8ba-8f3a-4917-a04c-ec4a45d6b4f3", "id": "5120e68a-21d9-4d51-a373-306b73403c57", "is_out_of_competition": false, "name": "Григорий", "organization_id": "24489565-5515-436b-aa94-6c8b67a784cb", "start_time": null, "surname": "Бойков", "year": 1985},{"bib": 212, "card_number": 61014181, "group_id": "7296b8ba-8f3a-4917-a04c-ec4a45d6b4f3", "id": "2cfadc56-6ea3-440c-a6ac-f0353e8f3945", "is_out_of_competition": false, "name": "Тимофей", "organization_id": "faf64be0-e4c7-4998-8904-242e1686c561", "start_time": null, "surname": "Демихов", "year": 1983},{"bib": 213, "card_number": 61014266, "group_id": "7296b8ba-8f3a-4917-a04c-ec4a45d6b4f3", "id": "1f522c5d-daf4-4502-ad15-c02e856c49b6", "is_out_of_competition": false, "name": "Светлана", "organization_id": "faf64be0-e4c7-4998-8904-242e1686c561", "start_time": null, "surname": "Черняк", "year": 1996},{"bib": 214, "card_number": 61014256, "group_id": "7296b8ba-8f3a-4917-a04c-ec4a45d6b4f3", "id": "7a31c110-1ad7-4f66-8d59-45c135f09100", "is_out_of_competition": false, "name": "Иван", "organization_id": "6b220ac5-b8bd-494e-9a58-2f971573752c", "start_time": null, "surname": "Берендеев", "year": 1987},{"bib": 215, "card_number": 61014195, "group_id": "7296b8ba-8f3a-4917-a04c-ec4a45d6b4f3", "id": "5a077e97-8558-44ef-b1fc-f6d171bc3c9f", "is_out_of_competition": false, "name": "Юлия", "organization_id": "6b220ac5-b8bd-494e-9a58-2f971573752c", "start_time": null, "surname": "Кочетова", "year": 1983},{"bib": 216, "card_number": 61014207, "group_id": "7296b8ba-8f3a-4917-a04c-ec4a45d6b4f3", "id": "e5dd8ac3-daec-4199-81fb-6149e3f358b6", "is_out_of_competition": false, "name": "Виктор", "organization_id": "25f78611-167e-4c8d-8b56-9f4c344b00ec", "start_time": null, "surname": "Королев", "year": 1990},{"bib": 217, "card_number": 61014166, "group_id": "7296b8ba-8f3a-4917-a04c-ec4a45d6b4f3", "id": "cd0cb409-4677-4db1-bce8-f3b414738ec6", "is_out_of_competition": false, "name": "Анастасия", "organization_id": "25f78611-167e-4c8d-8b56-9f4c344b00ec", "start_time": null, "surname": "Королева", "year": 2005},{"bib": 218, "card_number": 61014273, "group_id": null, "id": "d8dae24f-e278-47a7-8cce-4bcc2453d589", "is_out_of_competition": false, "name": "", "organization_id": null, "start_time": null, "surname": ".", "year": 0},{"bib": 219, "card_number": 61014143, "group_id": null, "id": "3ac89925-68c0-4453-ab4f-9715e203a779", "is_out_of_competition": false, "name": "", "organization_id": null, "start_time": null, "surname": ".", "year": 0}],
+  "results":[{"credit_time": null, "finish_msec": 38549001, "penalty_laps": 0, "penalty_time": null, "person_id": null, "place": 0, "result": "", "result_msec": 492000, "rogaine_penalty": 0, "rogaine_score": 0, "scores_ardf": 0, "splits": [{"code": "32", "course_index": 0, "days": 0, "index": 0, "is_correct": true, "leg_place": 0, "leg_time": null, "length_leg": 0, "object": "Split", "relative_place": 0, "relative_time": null, "speed": "", "time": 38221000}], "start_msec": 38056009, "status": 1, "status_comment": ""},{"credit_time": null, "finish_msec": 38721000, "penalty_laps": 0, "penalty_time": null, "person_id": "9984136b-a318-4187-8aa2-2e4393cf81ed", "place": 3, "result": "00:15:40", "result_msec": 940000, "rogaine_penalty": 0, "rogaine_score": 0, "scores_ardf": 0, "splits": [{"code": "32", "course_index": 1, "days": 0, "index": 0, "is_correct": true, "leg_place": 4, "leg_time": 172999, "length_leg": 840, "object": "Split", "relative_place": 4, "relative_time": 172999, "speed": "03:25/km", "time": 37953000}, {"code": "31", "course_index": 2, "days": 0, "index": 1, "is_correct": true, "leg_place": 3, "leg_time": 280000, "length_leg": 1040, "object": "Split", "relative_place": 3, "relative_time": 452999, "speed": "04:29/km", "time": 38233000}, {"code": "31", "course_index": 0, "days": 0, "index": 2, "is_correct": false, "leg_place": 0, "leg_time": null, "length_leg": 0, "object": "Split", "relative_place": 0, "relative_time": 458999, "speed": "", "time": 38239000}, {"code": "32", "course_index": 3, "days": 0, "index": 3, "is_correct": true, "leg_place": 3, "leg_time": 178000, "length_leg": 840, "object": "Split", "relative_place": 3, "relative_time": 630999, "speed": "03:31/km", "time": 38411000}], "start_msec": 37780001, "status": 1, "status_comment": ""},{"credit_time": null, "finish_msec": 38650000, "penalty_laps": 0, "penalty_time": null, "person_id": "23ebbd7d-0865-4564-b9b4-4d5126eba3d0", "place": 4, "result": "00:07:43", "result_msec": 463000, "rogaine_penalty": 0, "rogaine_score": 0, "scores_ardf": 0, "splits": [{"code": "32", "course_index": 1, "days": 0, "index": 0, "is_correct": true, "leg_place": 6, "leg_time": 156998, "length_leg": 840, "object": "Split", "relative_place": 6, "relative_time": 156998, "speed": "03:06/km", "time": 38343000}], "start_msec": 38186002, "status": 1, "status_comment": ""},{"credit_time": null, "finish_msec": 38605006, "penalty_laps": 0, "penalty_time": null, "person_id": "22f123aa-f924-4f38-9209-f1f3a890c91a", "place": 6, "result": "00:17:13", "result_msec": 1033000, "rogaine_penalty": 0, "rogaine_score": 0, "scores_ardf": 0, "splits": [{"code": "32", "course_index": 1, "days": 0, "index": 0, "is_correct": true, "leg_place": 5, "leg_time": 152993, "length_leg": 840, "object": "Split", "relative_place": 5, "relative_time": 152993, "speed": "03:02/km", "time": 37724000}, {"code": "31", "course_index": 0, "days": 0, "index": 0, "is_correct": false, "leg_place": 0, "leg_time": null, "length_leg": 0, "object": "Split", "relative_place": 0, "relative_time": 487993, "speed": "", "time": 38059000}, {"code": "32", "course_index": 0, "days": 0, "index": 0, "is_correct": false, "leg_place": 0, "leg_time": null, "length_leg": 0, "object": "Split", "relative_place": 0, "relative_time": 669993, "speed": "", "time": 38241000}], "start_msec": 37571007, "status": 1, "status_comment": ""},{"credit_time": null, "finish_msec": 38499002, "penalty_laps": 0, "penalty_time": null, "person_id": "2380845e-ac5c-42a1-be27-30b70fa690e8", "place": -1, "result": "п.п.3.13.12.2", "result_msec": 456000, "rogaine_penalty": 0, "rogaine_score": 0, "scores_ardf": 0, "splits": [{"code": "32", "course_index": 1, "days": 0, "index": 0, "is_correct": true, "leg_place": 3, "leg_time": 140995, "length_leg": 840, "object": "Split", "relative_place": 3, "relative_time": 140995, "speed": "02:47/km", "time": 38183000}], "start_msec": 38042005, "status": 4, "status_comment": "п.п.3.13.12.2"},{"credit_time": null, "finish_msec": 38445008, "penalty_laps": 0, "penalty_time": null, "person_id": "22065b0d-16a5-4399-9955-71ef1a51b1fc", "place": 2, "result": "00:06:40", "result_msec": 400000, "rogaine_penalty": 0, "rogaine_score": 0, "scores_ardf": 0, "splits": [{"code": "32", "course_index": 1, "days": 0, "index": 0, "is_correct": true, "leg_place": 1, "leg_time": 128000, "length_leg": 840, "object": "Split", "relative_place": 1, "relative_time": 128000, "speed": "02:32/km", "time": 38173000}], "start_msec": 38045000, "status": 1, "status_comment": ""},{"credit_time": null, "finish_msec": 38445003, "penalty_laps": 0, "penalty_time": null, "person_id": "6e498dc6-6165-4e8e-a798-a52f21288d86", "place": 2, "result": "00:13:54", "result_msec": 834000, "rogaine_penalty": 0, "rogaine_score": 0, "scores_ardf": 0, "splits": [{"code": "32", "course_index": 1, "days": 0, "index": 0, "is_correct": true, "leg_place": 2, "leg_time": 134997, "length_leg": 840, "object": "Split", "relative_place": 2, "relative_time": 134997, "speed": "02:40/km", "time": 37746000}, {"code": "31", "course_index": 2, "days": 0, "index": 1, "is_correct": true, "leg_place": 2, "leg_time": 268000, "length_leg": 1040, "object": "Split", "relative_place": 2, "relative_time": 402997, "speed": "04:17/km", "time": 38014000}, {"code": "32", "course_index": 3, "days": 0, "index": 2, "is_correct": true, "leg_place": 2, "leg_time": 151000, "length_leg": 840, "object": "Split", "relative_place": 2, "relative_time": 553997, "speed": "02:59/km", "time": 38165000}], "start_msec": 37611003, "status": 1, "status_comment": ""},{"credit_time": null, "finish_msec": 38415006, "penalty_laps": 0, "penalty_time": null, "person_id": "85bb73da-886b-4dc1-b7cc-509209379a5e", "place": 1, "result": "00:06:37", "result_msec": 397000, "rogaine_penalty": 0, "rogaine_score": 0, "scores_ardf": 0, "splits": [{"code": "32", "course_index": 1, "days": 0, "index": 0, "is_correct": true, "leg_place": 2, "leg_time": 128996, "length_leg": 840, "object": "Split", "relative_place": 2, "relative_time": 128996, "speed": "02:33/km", "time": 38147000}], "start_msec": 38018004, "status": 1, "status_comment": ""},{"credit_time": null, "finish_msec": 38377002, "penalty_laps": 0, "penalty_time": null, "person_id": "224aa3e7-aad5-4fa8-9bf5-e11cb044dda3", "place": 0, "result": "00:06:07", "result_msec": 367000, "rogaine_penalty": 0, "rogaine_score": 0, "scores_ardf": 0, "splits": [{"code": "32", "course_index": 0, "days": 0, "index": 0, "is_correct": true, "leg_place": 0, "leg_time": null, "length_leg": 0, "object": "Split", "relative_place": 0, "relative_time": null, "speed": "", "time": 38133000}], "start_msec": 38010001, "status": 1, "status_comment": ""},{"credit_time": null, "finish_msec": 38357004, "penalty_laps": 0, "penalty_time": null, "person_id": "d4f12e33-733c-43a1-9928-ebb2db76ab68", "place": 1, "result": "00:13:15", "result_msec": 795000, "rogaine_penalty": 0, "rogaine_score": 0, "scores_ardf": 0, "splits": [{"code": "32", "course_index": 1, "days": 0, "index": 0, "is_correct": true, "leg_place": 1, "leg_time": 131999, "length_leg": 840, "object": "Split", "relative_place": 1, "relative_time": 131999, "speed": "02:37/km", "time": 37694000}, {"code": "31", "course_index": 2, "days": 0, "index": 1, "is_correct": true, "leg_place": 1, "leg_time": 251000, "length_leg": 1040, "object": "Split", "relative_place": 1, "relative_time": 382999, "speed": "04:01/km", "time": 37945000}, {"code": "32", "course_index": 3, "days": 0, "index": 2, "is_correct": true, "leg_place": 1, "leg_time": 133000, "length_leg": 840, "object": "Split", "relative_place": 1, "relative_time": 515999, "speed": "02:38/km", "time": 38078000}], "start_msec": 37562001, "status": 1, "status_comment": ""},{"credit_time": null, "finish_msec": 38371008, "penalty_laps": 0, "penalty_time": null, "person_id": "a1f7ab91-d2bf-4f28-bbd8-b6c0b2d8e905", "place": 0, "result": "00:13:43", "result_msec": 823000, "rogaine_penalty": 0, "rogaine_score": 0, "scores_ardf": 0, "splits": [{"code": "32", "course_index": 0, "days": 0, "index": 0, "is_correct": true, "leg_place": 0, "leg_time": null, "length_leg": 0, "object": "Split", "relative_place": 0, "relative_time": null, "speed": "", "time": 37687000}, {"code": "31", "course_index": 0, "days": 0, "index": 0, "is_correct": true, "leg_place": 0, "leg_time": null, "length_leg": 0, "object": "Split", "relative_place": 0, "relative_time": null, "speed": "", "time": 37945000}, {"code": "32", "course_index": 0, "days": 0, "index": 0, "is_correct": true, "leg_place": 0, "leg_time": null, "length_leg": 0, "object": "Split", "relative_place": 0, "relative_time": null, "speed": "", "time": 38088000}], "start_msec": 37548002, "status": 1, "status_comment": ""},{"credit_time": null, "finish_msec": 38033005, "penalty_laps": 0, "penalty_time": null, "person_id": "5b68c45b-4fff-4d5d-bf91-48feeeef6e79", "place": 3, "result": "00:07:32", "result_msec": 452000, "rogaine_penalty": 0, "rogaine_score": 0, "scores_ardf": 0, "splits": [{"code": "32", "course_index": 1, "days": 0, "index": 0, "is_correct": true, "leg_place": 3, "leg_time": 144995, "length_leg": 840, "object": "Split", "relative_place": 3, "relative_time": 144995, "speed": "02:52/km", "time": 37726000}], "start_msec": 37581005, "status": 1, "status_comment": ""},{"credit_time": null, "finish_msec": 38020008, "penalty_laps": 0, "penalty_time": null, "person_id": "0dec043d-f00e-4b69-b1a8-dde5ad472390", "place": 5, "result": "00:07:49", "result_msec": 469000, "rogaine_penalty": 0, "rogaine_score": 0, "scores_ardf": 0, "splits": [{"code": "32", "course_index": 1, "days": 0, "index": 0, "is_correct": true, "leg_place": 4, "leg_time": 145994, "length_leg": 840, "object": "Split", "relative_place": 4, "relative_time": 145994, "speed": "02:53/km", "time": 37697000}], "start_msec": 37551006, "status": 1, "status_comment": ""}]
+}</script>
+<script>window.SPORTORG_INITIAL_VIEW = "mixed";</script>
+
+<script>
+(function(){
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const race = JSON.parse($('sportorg-json').textContent);
+  const persons = race.persons || [];
+  const orgMap = new Map((race.organizations || []).map(o => [o.id, o]));
+  const courseMap = new Map((race.courses || []).map(c => [c.id, c]));
+  const resultMap = new Map((race.results || []).map(r => [r.person_id, r]));
+  const groups = (race.groups || []).filter(g => persons.some(p => p.group_id === g.id));
+  const success = r => r && (Number(r.status) === 1 || Number(r.status) === 2);
+  const processingMode = race.settings?.result_processing_mode || 'time';
+  const scoresMode = processingMode === 'scores' || processingMode === 'ardf';
+  const hasNativePenalties = (race.results || []).some(r => Number(r.penalty_time || 0) > 0 || Number(r.credit_time || 0) > 0 || Number(r.penalty_laps || 0) > 0 || Number(r.rogaine_penalty || 0) > 0);
+  const statusNames = {
+    0:'Нет результата',1:'Финиш',2:'Финиш',3:'Дисквалификация',4:'Нет КП',5:'Сход',
+    6:'На дистанции',8:'Превышение КВ',9:'Снят',10:'Вне конкурса',13:'Не стартовал',
+    14:'Не заявлен',15:'Аннулирован',17:'Штрафной круг'
+  };
+  const esc = value => String(value ?? '').replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+  const numeric = value => typeof value === 'number' && Number.isFinite(value);
+  const num = value => new Intl.NumberFormat('ru-RU').format(value);
+  const name = person => `${person.surname || ''} ${person.name || ''}`.trim();
+  const org = person => (orgMap.get(person.organization_id) || {}).name || '—';
+  const courseOf = group => courseMap.get(group.course_id) || {};
+  const selected = {view:window.SPORTORG_INITIAL_VIEW || 'results', group:'all', query:''};
+
+  function fmtElapsed(ms, withSign = false) {
+    if(!numeric(ms) || ms < 0) return '—';
+    const seconds = Math.round(ms / 1000), hours = Math.floor(seconds / 3600), minutes = Math.floor(seconds % 3600 / 60), secs = seconds % 60;
+    return (withSign?'+':'') + (hours ? `${String(hours).padStart(2,'0')}:` : '') + `${String(minutes).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+  }
+  function fmtStart(ms) {
+    if(!numeric(ms) || ms < 0) return '—';
+    const seconds = Math.round(ms / 1000);
+    return [Math.floor(seconds / 3600) % 24, Math.floor(seconds % 3600 / 60), seconds % 60].map(x => String(x).padStart(2,'0')).join(':');
+  }
+  // SportOrg result_msec = elapsed + penalty_time - credit_time (with rounding).
+  // Lap times should reflect physical checkpoint/finish times; do not add penalties twice.
+  function rawFinishElapsed(r) {
+    if (!r) return null;
+    // Prefer the official rounded elapsed time minus native adjustments. This
+    // matches SportOrg's time accuracy and avoids a 1-second disagreement
+    // between a final lap's cumulative time and the official result.
+    if (numeric(r.result_msec) && r.result_msec > 0)
+      return Math.max(0, r.result_msec - Number(r.penalty_time || 0) + Number(r.credit_time || 0));
+    if (numeric(r.finish_msec) && numeric(r.start_msec) && r.finish_msec > r.start_msec)
+      return r.finish_msec - r.start_msec;
+    return null;
+  }
+  function adjustedTime(r, rawElapsed, complete) {
+    if (complete && success(r) && numeric(r.result_msec)) return r.result_msec;
+    if (!numeric(rawElapsed)) return null;
+    return Math.max(0, rawElapsed + Number(r?.penalty_time || 0) - Number(r?.credit_time || 0));
+  }
+  function penaltyParts(r) {
+    if (!r) return [];
+    const v = [];
+    if (Number(r.penalty_time) > 0) v.push({text:`+${fmtElapsed(r.penalty_time)}`,desc:`Штрафное время: ${fmtElapsed(r.penalty_time)}`,kind:'penalty-time'});
+    if (Number(r.credit_time) > 0) v.push({text:`−${fmtElapsed(r.credit_time)}`,desc:`Компенсация времени: ${fmtElapsed(r.credit_time)}`,kind:'credit-time'});
+    if (Number(r.penalty_laps) > 0) v.push({text:`ШК ${Number(r.penalty_laps)}`,desc:`Штрафные круги SportOrg: ${Number(r.penalty_laps)} (не круги дистанции)`,kind:'penalty-laps'});
+    if (Number(r.rogaine_penalty) > 0) v.push({text:`−${Number(r.rogaine_penalty)} очк.`,desc:`Штрафные очки SportOrg: ${Number(r.rogaine_penalty)}`,kind:'penalty-score'});
+    return v;
+  }
+  function penaltyCell(r) {
+    const parts = penaltyParts(r);
+    return parts.length ? `<span class="penalty-list">${parts.map(x => `<span class="penalty-chip ${x.kind}" title="${esc(x.desc)}">${esc(x.text)}</span>`).join('')}</span>` : '<span class="gray">—</span>';
+  }
+  function penaltyLabels(r) { return penaltyParts(r).map(x => x.desc); }
+  function statusText(r) { return statusNames[r?.status] || '—'; }
+  function statusHint(r) { return r?.status_comment ? ` title="${esc(r.status_comment)}"` : ''; }
+  function membersOf(group) {
+    return persons.filter(p => p.group_id === group.id && (!selected.query || [name(p), String(p.bib ?? ''), org(p)].join(' ').toLowerCase().includes(selected.query)));
+  }
+  const finishCode = String(race.settings?.system_finish_cp_number ?? '100');
+  // Lap boundaries may be a designated intermediate finish CP (usually 100),
+  // or the last CP of an inferred repeating circuit. The actual finish station
+  // is NOT part of course.controls and closes the final circuit.
+  function lapPlan(group) {
+    const controls = courseOf(group).controls || [];
+    const codes = controls.map(c => String(c.code));
+    const explicit = codes.flatMap((code, index) => code === finishCode ? [index + 1] : []);
+    if (explicit.length) {
+      const endsAtFinishCp = explicit[explicit.length - 1] === controls.length;
+      return {positions:explicit, actualFinish:!endsAtFinishCp, repeatedPeriod:0};
+    }
+    // A repeated route may finish at a physical finish station instead of its
+    // last recurring CP. The course therefore contains K full CP sequences,
+    // followed by the first (period - 1) CPs of the final lap.
+    // E.g. 32,31,32,F => 2 laps; 32,33,31,32,33,F => 2 laps;
+    // 32,33,31,32,33,31,32,33,F => 3 laps.
+    // Prefer patterns with >=2 complete periods; only if none exists infer
+    // two laps from one full period + matching start of the second circuit.
+    let period = 0;
+    for (let n = 2; n <= Math.floor(codes.length / 2); n++) {
+      if (codes.every((code, index) => code === codes[index % n])) {
+        period = n;
+        break;
+      }
+    }
+    if (!period && codes.length >= 3 &&
+        String(race.settings?.system_finish_source ?? 'station') === 'station' &&
+        codes.length % 2 === 1) {
+      const n = (codes.length + 1) / 2;
+      if (codes.slice(n).every((code, index) => code === codes[index])) {
+        period = n;
+      }
+    }
+    if (period) {
+      const positions = [];
+      for (let i = period; i < controls.length; i += period) positions.push(i);
+      return {positions, actualFinish:true, repeatedPeriod:period};
+    }
+    return {positions:[], actualFinish:true, repeatedPeriod:0};
+  }
+  function plannedLapsFor(group) {
+    const plan = lapPlan(group);
+    return Math.max(1, plan.positions.length + (plan.actualFinish ? 1 : 0));
+  }
+  function getLaps(person, group, allowExtra = false) {
+    const result = resultMap.get(person.id);
+    if (!result) return [];
+    const controls = courseOf(group).controls || [];
+    const splits = result.splits || [];
+    const rawFinish = rawFinishElapsed(result);
+    const plan = lapPlan(group);
+    const finishPositions = plan.positions;
+    const finishInCourseEnd = !plan.actualFinish;
+    const needsActualFinish = plan.actualFinish;
+    const validAt = position => splits.find(split =>
+      split.is_correct === true && Number(split.course_index) === position &&
+      String(split.code) === String(controls[position - 1].code)
+    );
+    const boundaries = finishPositions.map(pos => {
+      const split = validAt(pos);
+      return split && numeric(split.relative_time) ? split.relative_time : null;
+    });
+    if (needsActualFinish || !boundaries.length) {
+      // In an inferred periodic route, final lap is complete only when every
+      // mandatory CP of that circuit was correctly visited before the finish.
+      const completeFinalCircuit = !plan.repeatedPeriod || controls.every((_,i) => i < (finishPositions.at(-1) || 0) || Boolean(validAt(i + 1)));
+      boundaries.push(success(result) && numeric(rawFinish) && completeFinalCircuit ? rawFinish : null);
+    }
+
+    // Use measured physical finish for checkpoints and official time for ranking.
+    // A finish-control read with course_index=0 is not sufficient evidence of a
+    // completed extra lap: duplicate punches often occur a few seconds apart.
+    // Credit an extra lap only for a complete ordered checkpoint sequence.
+    if (allowExtra && success(result) && numeric(rawFinish) && controls.length && !plan.repeatedPeriod) {
+      const courseEnd = validAt(controls.length);
+      const courseComplete = controls.every((_, index) => Boolean(validAt(index + 1)));
+      if (courseComplete && courseEnd && numeric(courseEnd.relative_time)) {
+        const lastFinish = finishPositions.length ? finishPositions[finishPositions.length - 1] : 0;
+        const previousFinish = finishPositions.length > 1 ? finishPositions[finishPositions.length - 2] : 0;
+        // Reuse the course's final circuit instead of treating every finish punch as a lap.
+        const circuit = (finishInCourseEnd
+          ? controls.slice(previousFinish)
+          : controls.slice(lastFinish).concat([{code:finishCode}])
+        ).map(control => String(control.code));
+        const canRecognizeExtra = circuit.length >= 2 && circuit[circuit.length - 1] === finishCode && circuit.slice(0, -1).some(code => code !== finishCode);
+        const tail = splits.filter(split => numeric(split.relative_time) &&
+          split.relative_time > courseEnd.relative_time &&
+          split.relative_time <= rawFinish + 5000
+        ).sort((a, b) => a.relative_time - b.relative_time);
+
+        if (canRecognizeExtra) {
+          let begin = 0;
+          let plannedFinish = boundaries[boundaries.length - 1];
+          if (needsActualFinish) {
+            const finishIndex = tail.findIndex(split => String(split.code) === finishCode);
+            if (finishIndex >= 0) {
+              plannedFinish = tail[finishIndex].relative_time;
+              begin = finishIndex + 1;
+            } else {
+              begin = tail.length;
+            }
+          }
+          const extraFinishes = [];
+          let next = 0;
+          for (let i = begin; i < tail.length; i++) {
+            const code = String(tail[i].code);
+            if (code === circuit[next]) {
+              next++;
+              if (next === circuit.length) {
+                extraFinishes.push(tail[i].relative_time);
+                next = 0;
+              }
+            } else if (code === circuit[0]) {
+              next = 1;
+            }
+          }
+          if (extraFinishes.length && numeric(plannedFinish) &&
+              plannedFinish > 0 && plannedFinish < rawFinish) {
+            boundaries[boundaries.length - 1] = plannedFinish;
+            boundaries.push(...extraFinishes);
+          }
+        }
+      }
+    }
+    // The optional extra-laps mode also supports periodic routes with a real
+    // finish station. Require a WHOLE extra cycle of ordered punches before
+    // assigning another lap; one stray or duplicate CP is never enough.
+    if (allowExtra && plan.repeatedPeriod && success(result) && numeric(rawFinish) &&
+        controls.every((_,i) => Boolean(validAt(i+1)))) {
+      const period = plan.repeatedPeriod;
+      const last = validAt(controls.length);
+      const tail = splits.filter(s => numeric(s.relative_time) &&
+        s.relative_time > last.relative_time && s.relative_time < rawFinish)
+        .sort((a,b) => a.relative_time - b.relative_time);
+      let next = 0, matched = [];
+      for (const split of tail) {
+        const expected = String(controls[(controls.length + next) % period].code);
+        if (String(split.code) === expected) {
+          matched.push(split);
+          next++;
+        }
+      }
+      const cycles = Math.floor(matched.length / period);
+      if (cycles > 0 && numeric(boundaries[boundaries.length - 1])) {
+        const offset = controls.length % period;
+        const firstBoundaryIndex = offset ? period - offset - 1 : -1;
+        const extraBoundaries = [];
+        for (let n = 0; n < cycles; n++) {
+          const pos = firstBoundaryIndex + n * period;
+          const at = pos < 0 ? last.relative_time : matched[pos]?.relative_time;
+          if (numeric(at)) extraBoundaries.push(at);
+        }
+        if (extraBoundaries.length === cycles &&
+            extraBoundaries[0] > (boundaries.length > 1 ? (boundaries[boundaries.length - 2] || 0) : 0) &&
+            extraBoundaries[extraBoundaries.length - 1] < rawFinish) {
+          boundaries.pop();
+          boundaries.push(...extraBoundaries, rawFinish);
+        }
+      }
+    }
+    // Even without counting the extra lap, the result ends at the actual finish.
+    if (success(result) && numeric(rawFinish) && boundaries.length && numeric(boundaries[boundaries.length - 1])) {
+      boundaries[boundaries.length - 1] = rawFinish;
+    }
+    let previous = 0;
+    return boundaries.map((at, index) => {
+      const lap = at !== null && previous !== null ? at - previous : null;
+      previous = at;
+      return {number:index + 1, lap:lap !== null && lap > 0 ? lap : null, total:at};
+    });
+  }
+  // A shortened course is counted by completed, sequential laps (not by SportOrg's DNF/missing-CP place).
+  // Race data and original SportOrg statuses are preserved; these are report-only standings.
+  const standingsCache = new Map();
+  function completedLaps(laps) {
+    let count = 0, elapsed = null;
+    for (const lap of laps) {
+      if (!numeric(lap.lap) || lap.lap <= 0 || !numeric(lap.total) || lap.total <= 0) break;
+      count++;
+      elapsed = lap.total;
+    }
+    return {count, elapsed};
+  }
+  function standingsFor(group, allowExtra = false) {
+    const cacheKey = group.id + ':' + (allowExtra ? 'extra' : 'ordinary');
+    if (standingsCache.has(cacheKey)) return standingsCache.get(cacheKey);
+    const entries = persons.filter(p => p.group_id === group.id).map(p => {
+      const r = resultMap.get(p.id);
+      const laps = getLaps(p, group, allowExtra);
+      const {count, elapsed} = completedLaps(laps);
+      const planned = plannedLapsFor(group);
+      const partial = !scoresMode && (Number(r?.status) === 4 || Number(r?.status) === 5) && count > 0 && count < planned;
+      const eligible = scoresMode ? success(r) && numeric(r.result_msec) : (success(r) && count >= planned && count > 0) || partial;
+      const officialTime = scoresMode ? (numeric(r?.result_msec) ? r.result_msec : null) : adjustedTime(r, elapsed, success(r) && count >= planned);
+      const points = scoresMode ? Number(processingMode === 'ardf' ? r?.scores_ardf : r?.rogaine_score) : null;
+      return {p, r, laps, count, planned, elapsed:officialTime, rawElapsed:elapsed, points, partial, eligible, rank:null};
+    });
+    entries.sort((a,b) => {
+      if (a.eligible !== b.eligible) return a.eligible ? -1 : 1;
+      if (a.eligible) {
+        if (scoresMode) return b.points - a.points || a.elapsed - b.elapsed || Number(a.p.bib || 0) - Number(b.p.bib || 0);
+        return b.count - a.count || a.elapsed - b.elapsed || Number(a.p.bib || 0) - Number(b.p.bib || 0);
+      }
+      return Number(a.r?.status ?? 999) - Number(b.r?.status ?? 999) || Number(a.p.bib || 0) - Number(b.p.bib || 0);
+    });
+    const bestByLaps = new Map();
+    let prevKey = '', prevRank = 0;
+    entries.forEach((entry,index) => {
+      if (!entry.eligible) return;
+      const key = scoresMode ? `${entry.points}:${entry.elapsed}` : `${entry.count}:${entry.elapsed}`;
+      entry.rank = key === prevKey ? prevRank : index+1;
+      prevKey = key;
+      prevRank = entry.rank;
+      if (!bestByLaps.has(entry.count)) bestByLaps.set(entry.count,entry.elapsed);
+      entry.behind = scoresMode ? null : entry.elapsed - bestByLaps.get(entry.count);
+    });
+    standingsCache.set(cacheKey, entries);
+    return entries;
+  }
+  function scoredFor(group,members) {
+    const ids = new Set(members.map(p => p.id));
+    return standingsFor(group, selected.view === 'extra').filter(e => ids.has(e.p.id));
+  }
+  function partialBadge(entry) {
+    if (!entry.partial) return '';
+    const label = `Неполная дистанция: пройдено ${entry.count} из ${entry.planned} кругов`;
+    return `<span class="partial-mark" role="img" aria-label="${esc(label)}" title="${esc(label)}"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6.1" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 2a6 6 0 0 1 0 12Z" fill="currentColor" opacity=".62"/></svg></span>`;
+  }
+  function standingTime(entry) {
+    return entry.eligible ? fmtElapsed(entry.elapsed) : statusText(entry.r);
+  }
+  function groupHeader(group, count) {
+    const course = courseOf(group), length = Number(course.length || 0);
+    const details = [course.name || 'Дистанция не указана', length ? `${(length / 1000).toLocaleString('ru-RU',{maximumFractionDigits:2})} км` : ''].filter(Boolean).join(' · ');
+    return `<div class="group-header"><div><h3 class="group-heading">${esc(group.name)}</h3><div class="group-info">${esc(details)}</div></div><span class="head-count">${num(count)} уч.</span></div>`;
+  }
+  function th(label, cls = '') { return `<th class="${cls}">${label}</th>`; }
+  function table(head, rows) {
+    return `<div class="table-wrap"><table class="protocol"><thead><tr>${head.join('')}</tr></thead><tbody>${rows.join('')}</tbody></table></div>`;
+  }
+  function mobileCard({rank, bib, fullName, team, time, secondary, footer, laps, partialMarker = ''}) {
+    return `<article class="mobile-card"><div class="mobile-head"><span class="mobile-rank ${Number(rank) > 0 && Number(rank) <= 3 ? 'medal' : ''}">${esc(rank ?? '—')}</span><div class="mobile-person"><div class="mobile-name">${esc(fullName)}${partialMarker}</div><div class="mobile-org">${esc(team)}</div></div><div class="mobile-time">${esc(time)}${secondary ? `<small>${esc(secondary)}</small>` : ''}</div></div>${laps || ''}${footer ? `<div class="mobile-foot">${footer.map(item => `<span>${esc(item)}</span>`).join('')}</div>` : ''}</article>`;
+  }
+  function mobileWrap(cards) { return `<div class="mobile-cards">${cards.join('')}</div>`; }
+  function startView(group, members) {
+    const entries = members.slice().sort((a,b) => Number(a.start_time ?? Infinity) - Number(b.start_time ?? Infinity) || Number(a.bib || 0) - Number(b.bib || 0));
+    const head = [th('№','num'),th('Ст. №','num'),th('Участник'),th('Коллектив','hide-phone'),th('Г. р.','num hide-phone'),th('Чип','num hide-phone'),th('Старт','num'),...(hasNativePenalties ? [th('Штраф / компенсация','penalty-col')] : [])];
+    const rows = entries.map((p,index) => `<tr><td class="num muted">${index+1}</td><td class="num"><span class="bib">${esc(p.bib ?? '—')}</span></td><td><span class="name">${esc(name(p))}</span></td><td class="column-extra">${esc(org(p))}</td><td class="num">${esc(p.year || '—')}</td><td class="num">${esc(p.card_number || '—')}</td><td class="num time-main">${fmtStart(p.start_time)}</td>${hasNativePenalties ? `<td>${penaltyCell(resultMap.get(p.id))}</td>` : ''}</tr>`);
+    const cards = entries.map((p,index) => mobileCard({rank:index+1,bib:p.bib,fullName:name(p),team:org(p),time:fmtStart(p.start_time),secondary:'Время старта',footer:[`№ ${p.bib ?? '—'}`,p.year ? `${p.year} г.р.` : 'Год не указан',`Чип ${p.card_number || '—'}`,...penaltyLabels(resultMap.get(p.id))]}));
+    return table(head,rows) + mobileWrap(cards);
+  }
+  function resultsView(group, members) {
+    const entries = scoredFor(group,members);
+    const head = [th('Место','num'),th('№','num'),th('Участник'),th('Коллектив'),th('Г. р.','num'),th(scoresMode ? 'Очки' : 'Круги','num'),...(hasNativePenalties ? [th('Штраф / компенсация','penalty-col')] : []),th('Время','num'),th('Отставание','num')];
+    const rows = entries.map(e => {
+      const {p, r, rank, count, planned, eligible, behind} = e;
+      const place = rank;
+      const time = standingTime(e);
+      return `<tr><td class="num"><span class="place ${place && place <= 3 ? 'top-place' : ''}">${place || '—'}</span></td><td class="num"><span class="bib">${esc(p.bib ?? '—')}</span></td><td><span class="name">${esc(name(p))}</span>${p.is_out_of_competition ? ' <small class="muted">в/к</small>' : ''}${partialBadge(e)}</td><td class="column-extra">${esc(org(p))}</td><td class="num">${esc(p.year || '—')}</td><td class="num lap-count">${scoresMode && eligible ? e.points : (eligible ? `${count} / ${planned}` : '—')}</td>${hasNativePenalties ? `<td>${penaltyCell(r)}</td>` : ''}<td class="num">${eligible ? `<span class="result">${esc(time)}</span>` : `<span class="status"${statusHint(r)}>${esc(time)}</span>`}</td><td class="num gap">${eligible && behind > 0 ? fmtElapsed(behind,true) : '—'}</td></tr>`;
+    });
+    const cards = entries.map(e => mobileCard({rank:e.rank ?? '—', fullName:name(e.p), team:org(e.p),time:standingTime(e),secondary:'Результат',partialMarker:partialBadge(e),footer:[`№ ${e.p.bib ?? '—'}`, e.eligible ? (scoresMode ? `Очки ${e.points}` : `Круги ${e.count}/${e.planned}`) : '', e.eligible && e.behind > 0 ? `Отставание ${fmtElapsed(e.behind,true)}` : '', ...penaltyLabels(e.r)].filter(Boolean)}));
+    return table(head,rows) + mobileWrap(cards);
+  }
+  function lapsView(group,members) {
+    const entries = scoredFor(group,members);
+    const max = Math.max(0,...entries.map(e => e.laps.length));
+    const head = [th('Место','num'),th('№','num'),th('Участник'),th('Круги','num'),...Array.from({length:max},(_,i) => th(`Круг ${i+1}`,'num lap-col')),...(hasNativePenalties ? [th('Штраф / компенсация','penalty-col')] : []),th('Итог','num')];
+    const rows = entries.map(e => {
+      const {p, r, laps, rank, count, planned, eligible} = e;
+      const lapCells = Array.from({length:max},(_,i) => {const lap = laps[i];return `<td class="num lap-cell lap-col">${lap && lap.lap !== null ? `<b>${fmtElapsed(lap.lap)}</b><small>∑ ${fmtElapsed(lap.total)}</small>` : '<span class="gray">—</span>'}</td>`;}).join('');
+      return `<tr><td class="num place">${rank || '—'}</td><td class="num"><span class="bib">${esc(p.bib ?? '—')}</span></td><td><span class="name">${esc(name(p))}</span>${partialBadge(e)}</td><td class="num lap-count">${eligible ? `${count} / ${planned}` : '—'}</td>${lapCells}${hasNativePenalties ? `<td>${penaltyCell(r)}</td>` : ''}<td class="num lap-total"${eligible ? '' : statusHint(r)}>${eligible ? fmtElapsed(e.elapsed) : esc(statusText(r))}</td></tr>`;
+    });
+    const cards = entries.map(e => mobileCard({rank:e.rank ?? '—',fullName:name(e.p),team:org(e.p),time:standingTime(e),secondary:'Итог с учётом штрафов SportOrg',partialMarker:partialBadge(e),footer:[`№ ${e.p.bib ?? '—'}`,e.eligible ? `Круги ${e.count}/${e.planned}` : '',...penaltyLabels(e.r)].filter(Boolean),laps:`<div class="mobile-laps">${e.laps.map(v => `<div class="mobile-lap"><small>КРУГ ${v.number} · ∑ ${fmtElapsed(v.total)}</small><b>${fmtElapsed(v.lap)}</b></div>`).join('')}</div>`}));
+    return table(head,rows) + mobileWrap(cards);
+  }
+  // Pair classification exists only in groups explicitly named "Пары".
+  // Organization.name is the team label (not the individual surname/comment).
+  const pairGroups = groups.filter(g => /(^|[^а-яёa-z])пары(?=$|[^а-яёa-z])/i.test(String(g.name || '').trim()));
+  function pairTeamKey(person) {
+    const label = orgMap.get(person.organization_id)?.name;
+    return String(label || '').trim().replace(/\s+/g, ' ').toLocaleLowerCase('ru-RU');
+  }
+  function pairTeamLabel(person) {
+    return String(orgMap.get(person.organization_id)?.name || '').trim().replace(/\s+/g, ' ');
+  }
+  function comparePairIndividuals(a, b) {
+    if (a.eligible !== b.eligible) return a.eligible ? -1 : 1;
+    if (!a.eligible) return Number(a.r?.status || 999) - Number(b.r?.status || 999);
+    if (scoresMode) return (b.points - a.points) || (a.elapsed - b.elapsed);
+    return (b.count - a.count) || (a.elapsed - b.elapsed);
+  }
+  const pairCache = new Map();
+  function pairStandings(group, allowExtra = false) {
+    const cacheKey = `${group.id}:${allowExtra ? 'extra' : 'ordinary'}`;
+    if (pairCache.has(cacheKey)) return pairCache.get(cacheKey);
+    const byTeam = new Map();
+    const all = standingsFor(group, allowExtra);
+    for (const entry of all) {
+      const key = pairTeamKey(entry.p);
+      // Missing names never merge different athletes into one invented team.
+      const mapKey = key ? `team:${key}` : `missing:${entry.p.id}`;
+      if (!byTeam.has(mapKey)) byTeam.set(mapKey, {team:pairTeamLabel(entry.p) || 'Команда не указана', members:[]});
+      byTeam.get(mapKey).members.push(entry);
+    }
+    const teams = Array.from(byTeam.values()).map(item => {
+      const validSize = item.members.length === 2 && pairTeamKey(item.members[0].p) !== '';
+      const eligible = validSize && item.members.every(e => e.eligible);
+      const sorted = item.members.slice().sort(comparePairIndividuals);
+      const worst = sorted[sorted.length - 1] || null;
+      const status = !validSize ? (item.members.length === 1 ? 'Нет второго участника' : 'Требуется проверка состава')
+        : (!eligible ? 'Вне зачёта' : 'Зачёт');
+      return {...item, members:sorted, eligible, worst, rank:null, status};
+    });
+    teams.sort((a,b) => {
+      if (a.eligible !== b.eligible) return a.eligible ? -1 : 1;
+      if (a.eligible && b.eligible) {
+        const value = comparePairIndividuals(a.worst, b.worst);
+        if (value !== 0) return value;
+      }
+      return a.team.localeCompare(b.team,'ru');
+    });
+    let previousKey = null, previousPlace = null;
+    teams.forEach((team,i) => {
+      if (!team.eligible) return;
+      const w = team.worst;
+      const key = scoresMode ? `${w.points}|${w.elapsed}` : `${w.count}|${w.elapsed}`;
+      team.rank = key === previousKey ? previousPlace : i + 1;
+      previousKey = key; previousPlace = team.rank;
+    });
+    pairCache.set(cacheKey,teams);
+    return teams;
+  }
+  function splitChips(entry) {
+    const splits = entry.r?.splits || [];
+    if (!splits.length) return '<span class="gray">Нет отметок КП</span>';
+    const rendered = splits.map((split, index) => {
+      const code = String(split.code ?? '—');
+      const correct = split.is_correct === true;
+      // SportOrg may flag the separate finish read as an extra punch when
+      // its code is absent from course.controls. It still is the real finish.
+      const raw = rawFinishElapsed(entry.r);
+      const actualFinish = !correct && code === finishCode && numeric(raw) && numeric(split.relative_time) && Math.abs(split.relative_time - raw) <= 5000;
+      const elapsed = numeric(split.relative_time) && split.relative_time >= 0 ? fmtElapsed(split.relative_time) : '—';
+      const leg = numeric(split.leg_time) && split.leg_time > 0 ? fmtElapsed(split.leg_time) : '';
+      const meaning = actualFinish ? '; фактический финиш (вне схемы КП SportOrg)' : (correct ? '' : '; не зачтена SportOrg');
+      const title = `Отметка ${index+1}, КП ${code}: накопленное ${elapsed}${leg ? ', участок ' + leg : ''}${meaning}`;
+      return `<span class="checkpoint-chip ${actualFinish ? 'finish-chip' : (correct ? '' : 'unchecked')}" title="${esc(title)}"><b>${esc(code)}</b><span>∑ ${esc(elapsed)}</span>${leg ? `<small>+${esc(leg)}</small>` : ''}${actualFinish ? '<em>Ф</em>' : (correct ? '' : '<em>!</em>')}</span>`;
+    }).join('');
+    // Finish station is not a course punch; show it separately after the CPs.
+    const raw = rawFinishElapsed(entry.r);
+    const alreadyShown = splits.some(s => String(s.code) === finishCode &&
+      numeric(s.relative_time) && numeric(raw) && Math.abs(s.relative_time - raw) < 2000);
+    const finishChip = numeric(raw) && raw > 0 && success(entry.r) && !alreadyShown
+      ? `<span class="checkpoint-chip finish-chip" title="Фактический финиш со станции (от старта)"><b>F</b><span>∑ ${esc(fmtElapsed(raw))}</span><em>Ф</em></span>` : '';
+    return rendered + finishChip;
+  }
+  function pairParticipantRow(entry, worst, maxLaps) {
+    const isWorst = worst && worst.p.id === entry.p.id;
+    const lapCells = Array.from({length:maxLaps},(_,i) => {
+      const lap = entry.laps[i];
+      return `<td class="num lap-cell lap-col">${lap && numeric(lap.lap) ? `<b>${fmtElapsed(lap.lap)}</b><small>∑ ${fmtElapsed(lap.total)}</small>` : '<span class="gray">—</span>'}</td>`;
+    }).join('');
+    return `<tr class="pair-participant${isWorst ? ' is-worst' : ''}"><td class="num"><span class="bib">${esc(entry.p.bib ?? '—')}</span></td><td><span class="name">${esc(name(entry.p))}</span>${partialBadge(entry)}${isWorst ? '<span class="determining" title="Определяет результат команды">зачёт</span>' : ''}</td><td class="num lap-count">${entry.eligible ? `${entry.count}/${entry.planned}` : '—'}</td>${lapCells}${hasNativePenalties ? `<td>${penaltyCell(entry.r)}</td>` : ''}<td class="num lap-total">${entry.eligible ? fmtElapsed(entry.elapsed) : `<span class="status"${statusHint(entry.r)}>${esc(statusText(entry.r))}</span>`}</td></tr>`;
+  }
+  function pairView(group, allowExtra = false) {
+    // Search filters whole teams, so the second athlete is always preserved.
+    const query = selected.query;
+    const teams = pairStandings(group, allowExtra).filter(team => !query || [team.team,...team.members.flatMap(e=>[name(e.p),String(e.p.bib ?? '')])].join(' ').toLocaleLowerCase('ru-RU').includes(query));
+    const cards = teams.map(team => {
+      const worst = team.worst;
+      const maxLaps = Math.max(worst?.planned || 0, ...team.members.map(e=>e.laps.length));
+      const head = [th('№','num'),th('Участник'),th('Круги','num'),...Array.from({length:maxLaps},(_,i)=>th(`Круг ${i+1}`,'num lap-col')),...(hasNativePenalties?[th('Штраф / компенсация','penalty-col')]:[]),th('Итог','num')];
+      const rows = team.members.map(e=>pairParticipantRow(e,worst,maxLaps));
+      const score = team.eligible ? (scoresMode ? `${worst.points} очк. · ${fmtElapsed(worst.elapsed)}` : `${worst.count} / ${worst.planned} кр. · ${fmtElapsed(worst.elapsed)}`) : team.status;
+      const teamHeader = `<div class="pair-top"><span class="pair-place ${team.rank && team.rank <= 3 ? 'podium-place' : ''}">${team.rank ?? '—'}</span><div class="pair-identity"><h4>${esc(team.team)}</h4><small>Команда · ${team.members.length} участник${team.members.length === 1 ? '' : 'а'}</small></div><div class="pair-score"><strong>${esc(score)}</strong><small>${team.eligible ? 'Результат худшего из двух участников' : 'Командное место не присвоено'}</small></div></div>`;
+      const splits = team.members.map(e => `<div class="pair-checkpoints"><div class="split-owner"><span class="bib">${esc(e.p.bib ?? '—')}</span><b>${esc(name(e.p))}</b><span>Все отсечки КП</span></div><div class="checkpoint-list">${splitChips(e)}</div></div>`).join('');
+      return `<article class="pair-team" data-team-name="${esc(team.team)}">${teamHeader}<div class="table-wrap pair-table">${table(head,rows)}</div><div class="pair-checkpoint-section">${splits}</div></article>`;
+    }).join('');
+    const headline = `<div class="pair-instruction">Место присваивается команде по худшему результату её участника. Ниже показаны круги и все исходные отсечки каждого спортсмена. Команда без двух зачётных результатов остаётся без места.</div>`;
+    return {html:headline+`<div class="pair-list">${cards || '<div class="empty">Команды не найдены</div>'}</div>`, count:teams.length, members:teams.reduce((acc,t)=>acc+t.members.length,0)};
+  }
+  function pairFeaturedView(group) {
+    if (selected.query || selected.group === 'all') return '';
+    const winners = pairStandings(group, selected.view === 'extra').filter(t => t.rank !== null && t.rank <= 3).slice(0,3);
+    if(!winners.length) return '';
+    return `<section class="featured-section"><div class="featured-heading">ЛУЧШИЕ КОМАНДЫ · ${esc(group.name)}</div><div class="podium">${winners.map(t=>`<div class="podium-card"><span class="podium-rank ${t.rank === 1 ? 'first' : ''}">${t.rank}</span><div class="podium-person"><strong>${esc(t.team)}</strong><small>${t.worst.count}/${t.worst.planned} кр. · ${fmtElapsed(t.worst.elapsed)}</small></div></div>`).join('')}</div></section>`;
+  }
+
+  function featuredView(group, members) {
+    if(selected.view === 'start' || selected.query || selected.group === 'all') return '';
+    const winners = scoredFor(group,members).filter(e => e.rank !== null && e.rank <= 3).slice(0,3);
+    if(!winners.length) return '';
+    return `<section class="featured-section"><div class="featured-heading">★ ЛИДЕРЫ ГРУППЫ · ${esc(group.name)}</div><div class="podium">${winners.map(e => `<div class="podium-card"><span class="podium-rank ${e.rank === 1 ? 'first' : ''}">${e.rank}</span><div class="podium-person"><strong>${esc(name(e.p))}</strong><small>№ ${esc(e.p.bib ?? '—')} &nbsp;·&nbsp; ${e.count}/${e.planned} кр. &nbsp;·&nbsp; ${fmtElapsed(e.elapsed)}</small></div></div>`).join('')}</div></section>`;
+  }
+  function render() {
+    document.querySelectorAll('[data-view]').forEach(b => {
+      b.classList.toggle('active', b.dataset.view === selected.view);
+      b.setAttribute('aria-pressed', String(b.dataset.view === selected.view));
+    });
+    const headings = {
+      start:['Стартовый протокол','Стартовые номера, участники и время старта'],
+      results:['Протокол результатов','Личные места в обычных группах; командный результат по худшему в группе «Пары»'],
+      laps:['Время по кругам','Индивидуальные круги в обычных группах; оба участника и отсечки в парах'],
+      extra:['Дополнительные круги','Зачёт подтверждённых дополнительных кругов; парные группы по худшему участнику'],
+      pairs:['Только парный зачёт','Команды группы «Пары» с отсечками обоих участников'],
+      mixed:['Общий протокол: индивидуальные и пары','Все категории одного экспорта: личный зачёт и командный зачёт в группах «Пары»']
+    };
+    const [heading, description] = headings[selected.view] || headings.mixed;
+    $('current-heading').textContent = heading;
+    $('current-description').textContent = description;
+    // Combined documents contain wide team split tables; keep the entire print job consistent.
+    const landscape = ['laps','extra','pairs','mixed'].includes(selected.view) ||
+      (selected.view === 'results' && pairGroups.length > 0);
+    $('paper-size').textContent = `@page { size: A4 ${landscape ? 'landscape' : 'portrait'}; margin: 12mm; }`;
+
+    let visible = 0, html = '', featured = '', teamCount = 0, individualCount = 0;
+    const visibleGroups = selected.view === 'pairs' ? pairGroups : groups;
+    for (const group of visibleGroups) {
+      if (selected.group !== 'all' && selected.group !== group.id) continue;
+      const isPair = pairGroups.some(g => g.id === group.id);
+      // Start lists are still per participant (each rider has a separate start time).
+      // Every results-type view automatically switches only the pair category
+      // to the team ranking. Non-pair categories are never grouped by organization.
+      if (isPair && selected.view !== 'start') {
+        const info = pairView(group, selected.view === 'extra');
+        if (!info.count && selected.query) continue;
+        visible += info.members;
+        teamCount += info.count;
+        html += `<section class="group-card" data-category-kind="pair" data-group-id="${esc(group.id)}">${groupHeader(group, persons.filter(p=>p.group_id===group.id).length)}${info.html}</section>`;
+        featured += pairFeaturedView(group);
+      } else {
+        const members = membersOf(group);
+        if (!members.length) continue;
+        visible += members.length;
+        individualCount += members.length;
+        const useResults = selected.view === 'results';
+        const useStarts = selected.view === 'start';
+        const content = useStarts ? startView(group,members) : useResults ? resultsView(group,members) : lapsView(group,members);
+        html += `<section class="group-card" data-category-kind="individual" data-group-id="${esc(group.id)}">${groupHeader(group,members.length)}${content}</section>`;
+        featured += featuredView(group,members);
+      }
+    }
+    const noPairs = selected.view === 'pairs' && !pairGroups.length;
+    $('report-content').innerHTML = html || (noPairs
+      ? '<div class="empty">Групп с названием «Пары» нет в этом соревновании.</div>'
+      : '<div class="empty">По вашему запросу ничего не найдено. Попробуйте изменить фильтр.</div>');
+    $('featured').innerHTML = featured;
+    $('shown-count').textContent = selected.view === 'start'
+      ? `Показано: ${num(visible)} участников`
+      : `Показано: ${num(individualCount)} лично, ${num(teamCount)} команд (${num(visible)} уч.)`;
+    const missingStarts = persons.some(p => p.group_id && (p.start_time === null || p.start_time === undefined));
+    $('notice').innerHTML = selected.view === 'start' && missingStarts
+      ? '<div class="notice">Индивидуальное время старта в исходных данных указано не для всех участников. Отсутствующие значения показаны как «—».</div>'
+      : selected.view === 'pairs'
+      ? '<div class="notice">Только группы «Пары»: результат каждой команды по худшему результату двух участников, с учётом штрафов SportOrg. Неполный состав остаётся вне зачёта.</div>'
+      : selected.view === 'mixed' || selected.view === 'results' || selected.view === 'laps' || selected.view === 'extra'
+      ? '<div class="notice">Единый экспорт: обычные группы — личный зачёт, группы «Пары» — по худшему участнику команды. При равном числе кругов учитывается время с нативными штрафами SportOrg. Подтверждённые дополнительные круги считаются только в специальном режиме.</div>'
+      : '';
+  }
+  function renderChips() {
+    const choices = selected.view === 'pairs' ? pairGroups : groups;
+    $('group-filters').innerHTML = `<button type="button" class="chip ${selected.group === 'all' ? 'active' : ''}" data-group="all">${selected.view === 'pairs' ? 'Все парные группы' : 'Все группы'}</button>` + choices.map(group => `<button type="button" class="chip ${selected.group === group.id ? 'active' : ''}" data-group="${esc(group.id)}">${esc(group.name)} · ${num(persons.filter(p => p.group_id === group.id).length)}</button>`).join('');
+  }
+  $('group-filters').addEventListener('click', event => {const button = event.target.closest('[data-group]');if(!button)return;selected.group = button.dataset.group;renderChips();render();});
+  document.querySelectorAll('[data-view]').forEach(button => button.addEventListener('click', () => {selected.view = button.dataset.view;selected.group = 'all';renderChips();render();}));
+  $('search').addEventListener('input', event => {selected.query = event.target.value.trim().toLocaleLowerCase('ru-RU');render();});
+  $('print-btn').addEventListener('click', () => window.print());
+  $('date-print').textContent = '· '+new Date().toLocaleString('ru-RU');
+  $('event-count').textContent = num(persons.filter(p => groups.some(g => g.id === p.group_id)).length);
+  $('groups-count').textContent = num(groups.length);
+  $('finished-count').textContent = num(persons.filter(p => groups.some(g => g.id === p.group_id) && success(resultMap.get(p.id))).length);
+  renderChips(); render();
+})();
+</script>
+
+</body>
+</html>
